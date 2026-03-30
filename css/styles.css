@@ -1,0 +1,66 @@
+/*=========================================
+Neural - AI Tools
+Author: Mauricio Alves Rodriguez
+Description: Shared styles for all pages.
+=========================================*/
+
+@import url("https://cdn.jsdelivr.net/npm/@fontsource/syne@5/700.css");
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/400.css');
+
+/* Root variables */
+:root{
+    --bg: #09090c;
+    --surface: #111118;
+    --border: #1e1e2a;
+    --text: #f0eff8;
+    --text-muted: #a1a1aa;
+    --accent: #a8ff3e;
+    --accent-dark: #0d2000;
+
+    --font-display: 'Syne', system-ui, sans-serif;
+    --font-body: "DM Sans", system-ui, sans-serif;
+    --radius: 12px;
+    --transition: 0.2s ease;
+}
+
+/* css basic reset */
+*reset{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+a{
+    color: inherit;
+    text-decoration: none;
+}
+
+p{
+    color: var(--text-muted);
+}
+
+h1, h2, h3{
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+h1{
+    font-size: 48px;
+}
+
+h2{
+    font-size: 24px;
+}
+
+h3{
+    font-size: 18px;
+}
