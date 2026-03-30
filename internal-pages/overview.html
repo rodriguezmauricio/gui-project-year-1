@@ -8,14 +8,14 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/400.css">
   <style>
     :root {
-      --bg:        #09090C;
-      --surface:   #111118;
-      --surface-2: #1A1A24;
-      --border:    #1E1E2A;
-      --text:      #F0EFF8;
-      --muted:     #6B6A80;
-      --subtle:    #3E3E52;
-      --accent:    #A8FF3E;
+      --bg:          #09090C;
+      --surface:     #111118;
+      --surface-2:   #1A1A24;
+      --border:      #1E1E2A;
+      --text:        #F0EFF8;
+      --muted:       #6B6A80;
+      --subtle:      #3E3E52;
+      --accent:      #A8FF3E;
       --accent-dark: #0D2000;
       --font-d: 'Syne', system-ui, sans-serif;
       --font-b: 'DM Sans', system-ui, sans-serif;
@@ -41,7 +41,7 @@
       gap: 20px;
     }
 
-    /* Header */
+    /* ---- Header ---- */
     .header { margin-bottom: 8px; }
 
     .header-top {
@@ -53,6 +53,17 @@
 
     .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
 
+    .repo-pill {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 2px 10px;
+      margin-left: auto;
+    }
+
     .header h1 {
       font-family: var(--font-d);
       font-size: 30px;
@@ -62,7 +73,7 @@
 
     .header p { color: var(--muted); font-size: 15px; line-height: 1.7; max-width: 600px; }
 
-    /* How it works */
+    /* ---- How it works ---- */
     .how-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -70,30 +81,23 @@
       margin-top: 16px;
     }
 
-    .how-card {
-      background: var(--surface-2);
-      border-radius: 10px;
-      padding: 14px;
-    }
+    .how-card { background: var(--surface-2); border-radius: 10px; padding: 14px; }
+    .how-num  { font-family: var(--font-d); font-size: 22px; color: var(--accent); margin-bottom: 6px; }
+    .how-title{ font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .how-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
 
-    .how-num {
-      font-family: var(--font-d);
-      font-size: 22px;
-      color: var(--accent);
-      margin-bottom: 6px;
-    }
+    /* ---- Stack pills ---- */
+    .stack { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
 
-    .how-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
-    .how-desc  { font-size: 12px; color: var(--muted); line-height: 1.5; }
-
-    /* Panel */
-    .panel {
-      background: var(--surface);
+    .stack-pill {
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 999px;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
+      color: var(--muted);
     }
 
+    /* ---- Section label ---- */
     .panel-label {
       font-size: 11px;
       font-weight: 500;
@@ -103,7 +107,15 @@
       margin-bottom: 14px;
     }
 
-    /* Page blocks */
+    /* ---- Panel ---- */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    /* ---- Page blocks ---- */
     .page-block {
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -122,24 +134,18 @@
 
     .page-name { font-size: 14px; font-weight: 500; color: var(--text); }
     .page-file { font-family: 'Courier New', monospace; font-size: 11px; color: var(--subtle); }
-
     .page-desc { font-size: 13px; color: var(--muted); line-height: 1.55; margin-bottom: 10px; }
 
     .feature-row { display: flex; gap: 6px; flex-wrap: wrap; }
 
-    .tag {
-      font-size: 11px;
-      padding: 3px 9px;
-      border-radius: 999px;
-    }
-
+    .tag { font-size: 11px; padding: 3px 9px; border-radius: 999px; }
     .tag-purple { background: #26215C; color: #CECBF6; }
     .tag-teal   { background: #04342C; color: #9FE1CB; }
     .tag-amber  { background: #412402; color: #FAC775; }
     .tag-coral  { background: #4A1B0C; color: #F5C4B3; }
     .tag-gray   { background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); }
 
-    /* Data table */
+    /* ---- Data table ---- */
     .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 
     .data-table th {
@@ -163,12 +169,8 @@
     .data-table tr:last-child td { border-bottom: none; }
     .data-table td:first-child { color: var(--text); font-weight: 500; padding-right: 16px; white-space: nowrap; }
 
-    /* Criteria grid */
-    .criteria-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
+    /* ---- Criteria grid ---- */
+    .criteria-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 
     .crit-row {
       display: flex;
@@ -181,23 +183,96 @@
     }
 
     .crit-name  { color: var(--muted); }
-    .crit-check { font-size: 12px; color: #A8FF3E; font-weight: 500; }
+    .crit-check { font-size: 12px; color: var(--accent); font-weight: 500; }
 
-    /* Tech stack pills */
-    .stack { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
-
-    .stack-pill {
-      font-size: 12px;
-      padding: 5px 12px;
-      border-radius: 999px;
+    /* ---- Work split ---- */
+    .phase {
       border: 1px solid var(--border);
-      color: var(--muted);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
     }
+
+    .phase:last-child { margin-bottom: 0; }
+
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: var(--surface-2);
+    }
+
+    .phase-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .phase-title { font-size: 14px; font-weight: 500; color: var(--text); flex: 1; }
+    .phase-week  { font-size: 11px; color: var(--subtle); }
+
+    .phase-body { padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
+
+    .owner-row { display: flex; align-items: flex-start; gap: 10px; }
+
+    .owner-badge {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .badge-mauricio { background: #04342C; color: #9FE1CB; }
+    .badge-eamon    { background: #042C53; color: #85B7EB; }
+    .badge-both     { background: #26215C; color: #CECBF6; }
+
+    .owner-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+    .owner-items { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+    /* ---- Video grid ---- */
+    .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+    .video-card { background: var(--surface-2); border-radius: 10px; padding: 14px; }
+    .video-name { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+
+    .video-item {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.4;
+    }
+
+    .video-item:last-child { border-bottom: none; }
+
+    /* ---- Callout ---- */
+    .callout {
+      border-left: 3px solid #7F77DD;
+      background: rgba(127,119,221,0.06);
+      border-radius: 0 10px 10px 0;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .callout strong { color: var(--text); font-weight: 500; }
 
     @media (max-width: 600px) {
       body { padding: 24px 16px; }
       .how-grid { grid-template-columns: 1fr; }
       .criteria-grid { grid-template-columns: 1fr; }
+      .video-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -210,6 +285,7 @@
       <div class="logo-dot"></div>
       <span style="font-family:var(--font-d);font-size:15px;letter-spacing:-0.01em">NEURAL</span>
       <span style="font-size:12px;color:var(--subtle)">AI Tools Directory</span>
+      <span class="repo-pill">gui-project-year-1</span>
     </div>
     <h1>What we're building</h1>
     <p>A curated directory of AI tools where users can browse, search, filter by category, and save their favourites. All data is stored in the browser using localStorage — no backend or database required. Built with plain HTML, CSS, and JavaScript as part of the ATU GUI &amp; Web Development module.</p>
@@ -263,7 +339,7 @@
         <span class="page-name">Browse</span>
         <span class="page-file">browse.html</span>
       </div>
-      <p class="page-desc">All tools in a filterable grid. Category filter buttons narrow the list live. A search input filters by name and description on every keypress. Both written by JavaScript updating the DOM without a page reload.</p>
+      <p class="page-desc">All tools in a filterable grid. Category filter buttons narrow the list live. A search input filters by name and description on every keypress — both update the DOM without a page reload.</p>
       <div class="feature-row">
         <span class="tag tag-purple">DOM — live filter &amp; search</span>
         <span class="tag tag-teal">localStorage — read saved state</span>
@@ -359,6 +435,132 @@
       <div class="crit-row"><span class="crit-name">File organisation</span><span class="crit-check">html / css / js / images</span></div>
       <div class="crit-row"><span class="crit-name">Test cases</span><span class="crit-check">Filter, search, save tests</span></div>
     </div>
+  </div>
+
+
+  <!-- Work split -->
+  <div class="panel">
+    <div class="panel-label">3-phase work split</div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num" style="background:#26215C;color:#CECBF6">1</div>
+        <span class="phase-title">Foundation — both do this together</span>
+        <span class="phase-week">Week 1</span>
+      </div>
+      <div class="phase-body">
+        <div class="owner-row">
+          <span class="owner-badge badge-mauricio">Mauricio</span>
+          <div>
+            <div class="owner-title">CSS foundation + data file</div>
+            <div class="owner-items">
+              style.css — all CSS variables (colours, fonts, spacing, border-radius)<br>
+              tools-data.js — the array of all 12 AI tools + helper functions<br>
+              Base HTML template all pages will copy from
+            </div>
+          </div>
+        </div>
+        <div class="owner-row">
+          <span class="owner-badge badge-eamon">Eamon</span>
+          <div>
+            <div class="owner-title">Shared components</div>
+            <div class="owner-items">
+              Navbar HTML + CSS (used on every page)<br>
+              Footer HTML + CSS<br>
+              Responsive breakpoints in style.css
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num" style="background:#04342C;color:#9FE1CB">2</div>
+        <span class="phase-title">Solo pages — one page each, fully yours</span>
+        <span class="phase-week">Weeks 2–3</span>
+      </div>
+      <div class="phase-body">
+        <div class="owner-row">
+          <span class="owner-badge badge-mauricio">Mauricio</span>
+          <div>
+            <div class="owner-title">Home page (index.html)</div>
+            <div class="owner-items">
+              Hero section, featured tools grid, category quick-links<br>
+              JS: render tool cards from tools-data.js, save to localStorage on click
+            </div>
+          </div>
+        </div>
+        <div class="owner-row">
+          <span class="owner-badge badge-eamon">Eamon</span>
+          <div>
+            <div class="owner-title">Saved tools page (saved.html)</div>
+            <div class="owner-items">
+              Grid of saved tools, remove button on each card<br>
+              JS: read from localStorage, render cards, handle empty state
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num" style="background:#042C53;color:#85B7EB">3</div>
+        <span class="phase-title">Shared pages — both contribute, both can explain</span>
+        <span class="phase-week">Weeks 3–4</span>
+      </div>
+      <div class="phase-body">
+        <div class="owner-row">
+          <span class="owner-badge badge-both">Both</span>
+          <div>
+            <div class="owner-title">Browse page (browse.html)</div>
+            <div class="owner-items">
+              Eamon: HTML grid layout + category filter buttons<br>
+              Mauricio: JS filtering, search input, sort logic
+            </div>
+          </div>
+        </div>
+        <div class="owner-row">
+          <span class="owner-badge badge-both">Both</span>
+          <div>
+            <div class="owner-title">Tool detail page (tool.html)</div>
+            <div class="owner-items">
+              Eamon: HTML layout — title, description, pricing, category badge<br>
+              Mauricio: JS — read tool ID from URL, pull matching tool from data, render it
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Video breakdown -->
+  <div class="panel">
+    <div class="panel-label">What each person explains in their video</div>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-name">Mauricio's video (5 min)</div>
+        <div class="video-item">CSS variables + design system he set up</div>
+        <div class="video-item">tools-data.js structure and how it's used</div>
+        <div class="video-item">Home page — how JS renders tool cards</div>
+        <div class="video-item">Browse page — the filter &amp; search JS</div>
+        <div class="video-item">Tool detail — reading the URL parameter</div>
+      </div>
+      <div class="video-card">
+        <div class="video-name">Eamon's video (5 min)</div>
+        <div class="video-item">Navbar + footer components he built</div>
+        <div class="video-item">Responsive CSS and media queries</div>
+        <div class="video-item">Saved page — localStorage read &amp; render</div>
+        <div class="video-item">Browse page HTML layout + filter buttons</div>
+        <div class="video-item">Tool detail HTML — the page structure</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Why this works for the marking scheme:</strong> Code comments will clearly show who wrote what. Each person has solo work they fully understand, plus shared pages they each contributed to — so neither of you is bluffing in the video.
   </div>
 
 </div>
