@@ -384,7 +384,7 @@
   </header>
 
   <div class="banner">
-    <strong>How progress tracking works</strong> — this page reads <code>progress.json</code> from the repo on every load. To mark a step done, include <code>[done:N]</code> in your commit message when pushing to main. Mauricio can mark multiple at once: <code>[done:1,2,3]</code>. GitHub Actions picks it up, updates the JSON, and both of Mauricio see the change next time Mauricio open the page.
+    <strong>How progress tracking works</strong> — this page reads <code>progress.json</code> from the repo on every load. To mark a step done, include <code>[done:N]</code> in your commit message when pushing to main. Mauricio can mark multiple at once: <code>[done:1,2,3]</code>. GitHub Actions picks it up, updates the JSON, and both of you see the change next time Mauricio open the page.
   </div>
 
 
@@ -449,7 +449,7 @@ git push origin main</code></pre>
       </div>
       <div class="step-body">
         <p>Agree on one rule and stick to it: <strong style="color:var(--text)">never commit directly to main</strong>. Every piece of work gets its own branch. When finished, open a Pull Request on GitHub, the other person reviews it, then Mauricio merge. This means <code style="color:var(--accent);font-family:monospace">main</code> always contains reviewed, working code.</p>
-        <div class="learn"><strong>Why branches?</strong> Branches let both of Mauricio work simultaneously without conflicts. If something breaks on your branch, main is unaffected. This is the single most important real-world habit from this project.</div>
+        <div class="learn"><strong>Why branches?</strong> Branches let both of you work simultaneously without conflicts. If something breaks on your branch, main is unaffected. This is the single most important real-world habit from this project.</div>
         <details class="hint">
           <summary>Code hint — branch workflow</summary>
           <pre><code><span class="cm"># Mauricio starts the home page</span>
