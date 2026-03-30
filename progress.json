@@ -2,7 +2,9 @@
   "done": [
     1,
     2,
-    3
+    3,
+    4,
+    5
   ],
   "log": [
     {
@@ -22,6 +24,18 @@
       "author": "Mauricio Rodriguez",
       "sha": "9bb469b",
       "date": "2026-03-30T16:43:44.759Z"
+    },
+    {
+      "step": 4,
+      "author": "Mauricio Rodriguez",
+      "sha": "9e7033f",
+      "date": "2026-03-30T22:43:45.019Z"
+    },
+    {
+      "step": 5,
+      "author": "Mauricio Rodriguez",
+      "sha": "9e7033f",
+      "date": "2026-03-30T22:43:45.019Z"
     }
   ]
 }
