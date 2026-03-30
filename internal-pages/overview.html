@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neural — Project Overview</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/syne@5/700.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/400.css">
+  <style>
+    :root {
+      --bg:        #09090C;
+      --surface:   #111118;
+      --surface-2: #1A1A24;
+      --border:    #1E1E2A;
+      --text:      #F0EFF8;
+      --muted:     #6B6A80;
+      --subtle:    #3E3E52;
+      --accent:    #A8FF3E;
+      --accent-dark: #0D2000;
+      --font-d: 'Syne', system-ui, sans-serif;
+      --font-b: 'DM Sans', system-ui, sans-serif;
+      --radius: 12px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: 15px;
+      line-height: 1.6;
+      padding: 48px 24px;
+    }
+
+    .wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Header */
+    .header { margin-bottom: 8px; }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+
+    .header h1 {
+      font-family: var(--font-d);
+      font-size: 30px;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .header p { color: var(--muted); font-size: 15px; line-height: 1.7; max-width: 600px; }
+
+    /* How it works */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .how-card {
+      background: var(--surface-2);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .how-num {
+      font-family: var(--font-d);
+      font-size: 22px;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .how-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .how-desc  { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+    /* Panel */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .panel-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 14px;
+    }
+
+    /* Page blocks */
+    .page-block {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+
+    .page-block:last-child { margin-bottom: 0; }
+
+    .page-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .page-name { font-size: 14px; font-weight: 500; color: var(--text); }
+    .page-file { font-family: 'Courier New', monospace; font-size: 11px; color: var(--subtle); }
+
+    .page-desc { font-size: 13px; color: var(--muted); line-height: 1.55; margin-bottom: 10px; }
+
+    .feature-row { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .tag-purple { background: #26215C; color: #CECBF6; }
+    .tag-teal   { background: #04342C; color: #9FE1CB; }
+    .tag-amber  { background: #412402; color: #FAC775; }
+    .tag-coral  { background: #4A1B0C; color: #F5C4B3; }
+    .tag-gray   { background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); }
+
+    /* Data table */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+    .data-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0 0 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .data-table td {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      vertical-align: middle;
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table td:first-child { color: var(--text); font-weight: 500; padding-right: 16px; white-space: nowrap; }
+
+    /* Criteria grid */
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .crit-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: var(--surface-2);
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .crit-name  { color: var(--muted); }
+    .crit-check { font-size: 12px; color: #A8FF3E; font-weight: 500; }
+
+    /* Tech stack pills */
+    .stack { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+
+    .stack-pill {
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 24px 16px; }
+      .how-grid { grid-template-columns: 1fr; }
+      .criteria-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-top">
+      <div class="logo-dot"></div>
+      <span style="font-family:var(--font-d);font-size:15px;letter-spacing:-0.01em">NEURAL</span>
+      <span style="font-size:12px;color:var(--subtle)">AI Tools Directory</span>
+    </div>
+    <h1>What we're building</h1>
+    <p>A curated directory of AI tools where users can browse, search, filter by category, and save their favourites. All data is stored in the browser using localStorage — no backend or database required. Built with plain HTML, CSS, and JavaScript as part of the ATU GUI &amp; Web Development module.</p>
+
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-num">01</div>
+        <div class="how-title">Pre-loaded data</div>
+        <div class="how-desc">A JavaScript array of 12+ real AI tools lives in <code style="font-family:monospace;font-size:11px;color:var(--accent)">tools-data.js</code>. Every page reads from this single source.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">02</div>
+        <div class="how-title">Dynamic rendering</div>
+        <div class="how-desc">JavaScript loops through the tools array and builds HTML cards on the fly. Filters and search update the DOM live without reloading the page.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">03</div>
+        <div class="how-title">Saved state</div>
+        <div class="how-desc">When a user saves a tool, its ID is stored in <code style="font-family:monospace;font-size:11px;color:var(--accent)">localStorage</code>. The saved page reads those IDs and renders the matching tools.</div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <span class="stack-pill">HTML5</span>
+      <span class="stack-pill">CSS3 — custom properties, grid, flexbox</span>
+      <span class="stack-pill">Vanilla JavaScript</span>
+      <span class="stack-pill">localStorage API</span>
+      <span class="stack-pill">URL parameters</span>
+    </div>
+  </div>
+
+
+  <!-- Pages -->
+  <div class="panel">
+    <div class="panel-label">Pages</div>
+
+    <div class="page-block">
+      <div class="page-top">
+        <span class="page-name">Home</span>
+        <span class="page-file">index.html</span>
+      </div>
+      <p class="page-desc">Hero section with headline and search bar. Below it, a featured tools grid rendered by JavaScript. Each card has a Save button that stores the tool ID in localStorage and updates the navbar counter.</p>
+      <div class="feature-row">
+        <span class="tag tag-purple">DOM — render tool cards</span>
+        <span class="tag tag-teal">localStorage — save on click</span>
+      </div>
+    </div>
+
+    <div class="page-block">
+      <div class="page-top">
+        <span class="page-name">Browse</span>
+        <span class="page-file">browse.html</span>
+      </div>
+      <p class="page-desc">All tools in a filterable grid. Category filter buttons narrow the list live. A search input filters by name and description on every keypress. Both written by JavaScript updating the DOM without a page reload.</p>
+      <div class="feature-row">
+        <span class="tag tag-purple">DOM — live filter &amp; search</span>
+        <span class="tag tag-teal">localStorage — read saved state</span>
+      </div>
+    </div>
+
+    <div class="page-block">
+      <div class="page-top">
+        <span class="page-name">Tool detail</span>
+        <span class="page-file">tool.html</span>
+      </div>
+      <p class="page-desc">Shows the full details of a single tool. Reads the tool ID from the URL parameter (<code style="font-family:monospace;font-size:12px;color:var(--accent)">tool.html?id=3</code>), finds the matching object in the tools array, and populates the page elements with that data.</p>
+      <div class="feature-row">
+        <span class="tag tag-purple">DOM — populate from URL param</span>
+        <span class="tag tag-teal">localStorage — save from detail page</span>
+      </div>
+    </div>
+
+    <div class="page-block">
+      <div class="page-top">
+        <span class="page-name">Saved tools</span>
+        <span class="page-file">saved.html</span>
+      </div>
+      <p class="page-desc">Displays everything the user has bookmarked. Reads the saved IDs array from localStorage, looks up each tool, and renders the cards. Remove button on each card. Shows a friendly empty state when nothing is saved.</p>
+      <div class="feature-row">
+        <span class="tag tag-teal">localStorage — read &amp; remove</span>
+        <span class="tag tag-purple">DOM — render &amp; update list</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Data -->
+  <div class="panel">
+    <div class="panel-label">Example tools pre-loaded in tools-data.js</div>
+    <table class="data-table">
+      <tr>
+        <th>Tool</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th style="text-align:right">Pricing</th>
+      </tr>
+      <tr>
+        <td>ChatGPT</td>
+        <td><span class="tag tag-purple">Writing</span></td>
+        <td>Conversational AI for writing, coding, and analysis</td>
+        <td style="text-align:right"><span class="tag tag-teal">Freemium</span></td>
+      </tr>
+      <tr>
+        <td>Midjourney</td>
+        <td><span class="tag tag-coral">Image</span></td>
+        <td>Generate high quality images from text prompts</td>
+        <td style="text-align:right"><span class="tag tag-amber">Paid</span></td>
+      </tr>
+      <tr>
+        <td>GitHub Copilot</td>
+        <td><span class="tag tag-gray">Code</span></td>
+        <td>AI pair programmer that suggests code in your editor</td>
+        <td style="text-align:right"><span class="tag tag-amber">Paid</span></td>
+      </tr>
+      <tr>
+        <td>ElevenLabs</td>
+        <td><span class="tag tag-teal">Audio</span></td>
+        <td>Realistic AI voice generation and cloning</td>
+        <td style="text-align:right"><span class="tag tag-teal">Freemium</span></td>
+      </tr>
+      <tr>
+        <td>Runway</td>
+        <td><span class="tag tag-coral">Video</span></td>
+        <td>AI video generation and editing tools</td>
+        <td style="text-align:right"><span class="tag tag-teal">Freemium</span></td>
+      </tr>
+      <tr>
+        <td>Perplexity</td>
+        <td><span class="tag tag-amber">Research</span></td>
+        <td>AI-powered search with cited sources</td>
+        <td style="text-align:right"><span class="tag tag-teal">Free</span></td>
+      </tr>
+    </table>
+  </div>
+
+
+  <!-- Marking scheme -->
+  <div class="panel">
+    <div class="panel-label">How it maps to the marking scheme</div>
+    <div class="criteria-grid">
+      <div class="crit-row"><span class="crit-name">Structure &amp; navigation</span><span class="crit-check">4 linked pages</span></div>
+      <div class="crit-row"><span class="crit-name">Visuals &amp; structured data</span><span class="crit-check">Tool cards + table</span></div>
+      <div class="crit-row"><span class="crit-name">Data capture &amp; forms</span><span class="crit-check">Search + filter inputs</span></div>
+      <div class="crit-row"><span class="crit-name">Consistent styling</span><span class="crit-check">Shared CSS &amp; navbar</span></div>
+      <div class="crit-row"><span class="crit-name">Responsive design</span><span class="crit-check">CSS grid breakpoints</span></div>
+      <div class="crit-row"><span class="crit-name">JavaScript</span><span class="crit-check">DOM, localStorage, URL params</span></div>
+      <div class="crit-row"><span class="crit-name">File organisation</span><span class="crit-check">html / css / js / images</span></div>
+      <div class="crit-row"><span class="crit-name">Test cases</span><span class="crit-check">Filter, search, save tests</span></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
