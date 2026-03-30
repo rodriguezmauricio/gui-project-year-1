@@ -1,5 +1,5 @@
-/*=========================================
-Neural - AI Tools
+/*BEGIN SHARED STYLES =====================
+Shared styles
 Author: Mauricio Alves Rodriguez
 Description: Shared styles for all pages.
 =========================================*/
@@ -64,3 +64,68 @@ h2{
 h3{
     font-size: 18px;
 }
+
+/* classes styles */
+.container{
+    width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/*END SHARED STYLES =====================
+Author: Mauricio Alves Rodriguez
+=========================================*/
+
+/*BEGIN NAVIGATION STYLES ===============
+Navigation styles
+Author: Eamonn Corban
+Description: styles for navigation.
+=========================================*/
+
+/* 
+1. Uncomment the code below.
+2. Create the styles below.
+3. Delete this comment after this
+*/
+
+/* .navbar{
+
+}
+
+.navbar .container{
+
+}
+
+.nav-logo{
+
+}
+
+.nav-links{
+
+}
+
+.nav-link{
+
+}
+
+.nav-link:hover{
+
+}
+
+.nav-link-active{
+
+} */
+
+/*END NAVIGATION STYLES =================
+Author: Eamonn Corban
+=========================================*/
+
+/*BEGIN FOOTER STYLES ===================
+Navigation styles
+Author: Eamonn Corban
+Description: styles for footer.
+=========================================*/
+
+/*END FOOTER STYLES =====================
+Author: Eamonn Corban
+=========================================*/
