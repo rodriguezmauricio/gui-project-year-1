@@ -997,7 +997,7 @@ document.<span class="cs">getElementById</span>(<span class="cv">'featured-grid'
   // Load progress.json from the repo (GitHub Pages serves it as a static file)
   async function loadProgress() {
     try {
-      const res = await fetch('./progress.json?t=' + Date.now());
+      const res = await fetch('../progress.json?t=' + Date.now());
       if (!res.ok) throw new Error('not found');
       return await res.json();
     } catch {
