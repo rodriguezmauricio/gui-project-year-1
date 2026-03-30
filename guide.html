@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neural — Project Guide</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/syne@5/700.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/400.css">
+  <style>
+    :root {
+      --bg:           #09090C;
+      --surface:      #111118;
+      --surface-2:    #1A1A24;
+      --border:       #1E1E2A;
+      --text:         #F0EFF8;
+      --text-muted:   #6B6A80;
+      --accent:       #A8FF3E;
+      --mauricio:     #A8FF3E;
+      --mauricio-bg:  rgba(168,255,62,0.08);
+      --eamon:        #60A5FA;
+      --eamon-bg:     rgba(96,165,250,0.08);
+      --both:         #A78BFA;
+      --both-bg:      rgba(167,139,250,0.08);
+      --font-d: 'Syne', system-ui, sans-serif;
+      --font-b: 'DM Sans', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: 14px;
+      line-height: 1.6;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      border-right: 1px solid var(--border);
+      padding: 28px 20px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .sidebar-logo {
+      font-family: var(--font-d);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+    .progress-wrap { display: flex; flex-direction: column; gap: 8px; }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .progress-bar { height: 4px; background: var(--surface-2); border-radius: 2px; overflow: hidden; }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    .phase-nav { display: flex; flex-direction: column; gap: 2px; }
+
+    .phase-nav-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+
+    .phase-nav-item:hover { background: var(--surface); color: var(--text); }
+
+    .phase-nav-item .frac {
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--surface-2);
+      padding: 1px 6px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .phase-nav-item.complete { color: var(--text); }
+    .phase-nav-item.complete .frac { color: var(--accent); }
+
+    .legend { display: flex; flex-direction: column; gap: 6px; margin-top: auto; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+    /* Main */
+    .main { padding: 40px 48px; max-width: 820px; }
+
+    .guide-header { margin-bottom: 32px; }
+    .guide-header h1 { font-family: var(--font-d); font-size: 32px; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .guide-header p { color: var(--text-muted); font-size: 15px; max-width: 520px; line-height: 1.65; }
+
+    /* Workflow banner */
+    .banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      padding: 12px 16px;
+      margin-bottom: 36px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .banner strong { color: var(--text); font-weight: 500; }
+
+    .banner code {
+      font-family: 'Courier New', monospace;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    /* Phase section */
+    .phase { margin-bottom: 56px; }
+
+    .phase-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .phase-num {
+      font-family: var(--font-d);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 9px;
+    }
+
+    .phase-title { font-family: var(--font-d); font-size: 18px; letter-spacing: -0.01em; }
+    .phase-week  { font-size: 12px; color: var(--text-muted); margin-left: auto; }
+
+    /* Step card */
+    .step {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .step.done { border-color: rgba(168,255,62,0.2); }
+
+    .step[data-owner="mauricio"] { border-left: 3px solid var(--mauricio); }
+    .step[data-owner="eamon"]    { border-left: 3px solid var(--eamon); }
+    .step[data-owner="both"]     { border-left: 3px solid var(--both); }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      cursor: pointer;
+      background: var(--surface);
+      user-select: none;
+    }
+
+    .step-header:hover { background: #141420; }
+
+    .step-num { font-family: var(--font-d); font-size: 11px; color: var(--text-muted); min-width: 24px; }
+
+    .badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .badge.mauricio { background: var(--mauricio-bg); color: var(--mauricio); }
+    .badge.eamon    { background: var(--eamon-bg);    color: var(--eamon); }
+    .badge.both     { background: var(--both-bg);     color: var(--both); }
+
+    .step-title { flex: 1; font-size: 14px; font-weight: 500; color: var(--text); }
+    .step.done .step-title { color: var(--text-muted); text-decoration: line-through; }
+
+    /* Completion info tag (injected by JS) */
+    .completion-info {
+      font-size: 11px;
+      color: var(--accent);
+      background: var(--mauricio-bg);
+      border-radius: 999px;
+      padding: 2px 9px;
+      margin-left: auto;
+      margin-right: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Custom checkbox */
+    .cb-wrap { position: relative; width: 20px; height: 20px; flex-shrink: 0; }
+    .cb-wrap input { opacity: 0; position: absolute; width: 100%; height: 100%; cursor: pointer; z-index: 1; }
+    .cb-box {
+      width: 20px; height: 20px;
+      border: 1.5px solid var(--border);
+      border-radius: 5px;
+      background: var(--surface-2);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+      pointer-events: none;
+    }
+    .cb-wrap input:checked + .cb-box { background: var(--accent); border-color: var(--accent); }
+    .cb-box::after {
+      content: '';
+      width: 5px; height: 9px;
+      border: 2px solid #0D2000;
+      border-top: none; border-left: none;
+      transform: rotate(45deg) translateY(-1px);
+      opacity: 0;
+      transition: opacity 0.1s;
+    }
+    .cb-wrap input:checked + .cb-box::after { opacity: 1; }
+
+    .collapse-arrow { font-size: 14px; color: var(--text-muted); transition: transform 0.2s; margin-left: 4px; }
+    .step.collapsed .collapse-arrow { transform: rotate(-90deg); }
+
+    /* Step body */
+    .step-body {
+      padding: 0 18px 18px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .step.collapsed .step-body { display: none; }
+
+    .step-body p { color: var(--text-muted); font-size: 14px; line-height: 1.7; padding-top: 14px; }
+
+    /* Learning note */
+    .learn {
+      background: var(--surface-2);
+      border-left: 3px solid var(--both);
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .learn strong { color: var(--both); font-weight: 500; }
+
+    /* Code hint accordion */
+    details.hint { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+
+    details.hint summary {
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      background: var(--surface-2);
+      user-select: none;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    details.hint summary::before { content: '›'; font-size: 16px; transition: transform 0.2s; display: inline-block; }
+    details[open].hint summary::before { transform: rotate(90deg); }
+    details.hint summary:hover { color: var(--text); }
+
+    details.hint pre { background: #0D0D10; padding: 14px 16px; overflow-x: auto; font-size: 13px; line-height: 1.6; }
+    details.hint code { font-family: 'Courier New', monospace; color: #C9D1D9; }
+    details.hint .cm  { color: #6B8094; }
+    details.hint .ck  { color: #FF7B72; }
+    details.hint .cs  { color: #79C0FF; }
+    details.hint .cv  { color: #FFA657; }
+
+    /* Floating tooltip */
+    #tooltip {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 13px;
+      color: var(--text);
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+      z-index: 999;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+      body { grid-template-columns: 1fr; }
+      .sidebar { position: static; height: auto; }
+      .main { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <span class="logo-dot"></span>
+    Neural — Guide
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Overall progress</span>
+      <span id="prog-text">0 / 27</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="prog-fill"></div>
+    </div>
+  </div>
+
+  <nav class="phase-nav">
+    <a class="phase-nav-item" href="#phase-0">Setup &amp; GitHub <span class="frac" id="f0">0/3</span></a>
+    <a class="phase-nav-item" href="#phase-1">Foundation <span class="frac" id="f1">0/5</span></a>
+    <a class="phase-nav-item" href="#phase-2">Home page <em style="font-size:11px;opacity:.6;margin-left:3px">(Mauricio)</em> <span class="frac" id="f2">0/4</span></a>
+    <a class="phase-nav-item" href="#phase-3">Saved page <em style="font-size:11px;opacity:.6;margin-left:3px">(Eamon)</em> <span class="frac" id="f3">0/3</span></a>
+    <a class="phase-nav-item" href="#phase-4">Browse page <span class="frac" id="f4">0/4</span></a>
+    <a class="phase-nav-item" href="#phase-5">Tool detail <span class="frac" id="f5">0/3</span></a>
+    <a class="phase-nav-item" href="#phase-6">Polish &amp; submit <span class="frac" id="f6">0/5</span></a>
+  </nav>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--mauricio)"></div>Mauricio</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--eamon)"></div>Eamon</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--both)"></div>Both</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <header class="guide-header">
+    <h1>Neural — Build Guide</h1>
+    <p>Mauricio &amp; Eamon · ATU GUI &amp; Web Dev · Due 1 May 2026</p>
+  </header>
+
+  <div class="banner">
+    <strong>How progress tracking works</strong> — this page reads <code>progress.json</code> from the repo on every load. To mark a step done, include <code>[done:N]</code> in your commit message when pushing to main. You can mark multiple at once: <code>[done:1,2,3]</code>. GitHub Actions picks it up, updates the JSON, and both of you see the change next time you open the page.
+  </div>
+
+
+  <!-- PHASE 0 -->
+  <section class="phase" id="phase-0">
+    <div class="phase-heading">
+      <span class="phase-num">Phase 0</span>
+      <span class="phase-title">Setup &amp; GitHub</span>
+      <span class="phase-week">Week 1 — do this together</span>
+    </div>
+
+    <div class="step" data-owner="both" data-phase="0">
+      <div class="step-header">
+        <span class="step-num">01</span>
+        <span class="badge both">Both</span>
+        <span class="step-title">Create the GitHub repository</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="1"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Go to github.com and create a new public repository. Name it <code style="color:var(--accent);font-family:monospace">neural-ai-directory</code>. Tick "Add a README file". Both Mauricio and Eamon clone it to their local machines before doing anything else.</p>
+        <div class="learn"><strong>Why GitHub?</strong> Two people cannot safely edit the same files without a version control system. Git tracks every change, who made it, and lets you merge work without overwriting each other.</div>
+        <details class="hint">
+          <summary>Code hint — clone and verify</summary>
+          <pre><code><span class="cm"># Clone the repo to your machine</span>
+git clone https://github.com/YOURNAME/neural-ai-directory.git
+cd neural-ai-directory
+
+<span class="cm"># Confirm you are on the main branch</span>
+git branch</code></pre>
+        </details>
+      </div>
+    </div>
+
+    <div class="step" data-owner="mauricio" data-phase="0">
+      <div class="step-header">
+        <span class="step-num">02</span>
+        <span class="badge mauricio">Mauricio</span>
+        <span class="step-title">Create the folder structure</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="2"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Inside the project folder, create three folders: <code style="color:var(--accent);font-family:monospace">css/</code>, <code style="color:var(--accent);font-family:monospace">js/</code>, and <code style="color:var(--accent);font-family:monospace">images/</code>. In the root, create four empty HTML files: <code style="color:var(--accent);font-family:monospace">index.html</code>, <code style="color:var(--accent);font-family:monospace">browse.html</code>, <code style="color:var(--accent);font-family:monospace">tool.html</code>, <code style="color:var(--accent);font-family:monospace">saved.html</code>. Also add <code style="color:var(--accent);font-family:monospace">progress.json</code> with contents <code style="color:var(--accent);font-family:monospace">{"done":[],"log":[]}</code> and the <code style="color:var(--accent);font-family:monospace">.github/workflows/update-progress.yml</code> file. Commit and push so Eamon has the same structure from the start.</p>
+        <div class="learn"><strong>Why structure first?</strong> Your marking scheme awards marks specifically for file organisation. Setting it up before writing code means neither of you accidentally saves files in the wrong place.</div>
+        <details class="hint">
+          <summary>Code hint — commit the structure</summary>
+          <pre><code>git add .
+git commit -m <span class="cv">"chore: set up project folder structure [done:2]"</span>
+git push origin main</code></pre>
+        </details>
+      </div>
+    </div>
+
+    <div class="step" data-owner="both" data-phase="0">
+      <div class="step-header">
+        <span class="step-num">03</span>
+        <span class="badge both">Both</span>
+        <span class="step-title">Agree on a branching workflow</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="3"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Agree on one rule and stick to it: <strong style="color:var(--text)">never commit directly to main</strong>. Every piece of work gets its own branch. When finished, open a Pull Request on GitHub, the other person reviews it, then you merge. This means <code style="color:var(--accent);font-family:monospace">main</code> always contains reviewed, working code.</p>
+        <div class="learn"><strong>Why branches?</strong> Branches let both of you work simultaneously without conflicts. If something breaks on your branch, main is unaffected. This is the single most important real-world habit from this project.</div>
+        <details class="hint">
+          <summary>Code hint — branch workflow</summary>
+          <pre><code><span class="cm"># Mauricio starts the home page</span>
+git checkout -b feature/home-page
+<span class="cm"># ...write code, commit...</span>
+git push -u origin feature/home-page
+<span class="cm"># Open a Pull Request on GitHub → Eamon reviews → merge</span>
+
+<span class="cm"># Eamon starts the saved page</span>
+git checkout -b feature/saved-page
+git push -u origin feature/saved-page</code></pre>
+        </details>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PHASE 1 -->
+  <section class="phase" id="phase-1">
+    <div class="phase-heading">
+      <span class="phase-num">Phase 1</span>
+      <span class="phase-title">Foundation</span>
+      <span class="phase-week">Week 1 — different files, same period</span>
+    </div>
+
+    <div class="step" data-owner="mauricio" data-phase="1">
+      <div class="step-header">
+        <span class="step-num">04</span>
+        <span class="badge mauricio">Mauricio</span>
+        <span class="step-title">Write style.css</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="4"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Create <code style="color:var(--accent);font-family:monospace">css/style.css</code>. Use the reference file as a guide — type it out yourself, do not copy-paste. Start with the <code style="color:var(--accent);font-family:monospace">:root</code> block and write each variable. Then work through the sections in order: reset, base typography, container, navbar, footer, tool card, badges, buttons, grid, responsive.</p>
+        <div class="learn"><strong>CSS variables</strong> let you define a value once and reuse it everywhere. Changing <code>--accent</code> updates the whole site in one edit. This is one of the most important patterns in modern CSS.</div>
+      </div>
+    </div>
+
+    <div class="step" data-owner="mauricio" data-phase="1">
+      <div class="step-header">
+        <span class="step-num">05</span>
+        <span class="badge mauricio">Mauricio</span>
+        <span class="step-title">Write tools-data.js</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="5"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Create <code style="color:var(--accent);font-family:monospace">js/tools-data.js</code>. Declare a <code style="color:var(--accent);font-family:monospace">const TOOLS</code> array with at least 8 tool objects. Each needs: <code style="color:var(--accent);font-family:monospace">id</code>, <code style="color:var(--accent);font-family:monospace">name</code>, <code style="color:var(--accent);font-family:monospace">category</code>, <code style="color:var(--accent);font-family:monospace">description</code>, <code style="color:var(--accent);font-family:monospace">pricing</code>, <code style="color:var(--accent);font-family:monospace">url</code>, <code style="color:var(--accent);font-family:monospace">featured</code>. After the array, write three helper functions: <code style="color:var(--accent);font-family:monospace">getToolById(id)</code>, <code style="color:var(--accent);font-family:monospace">getToolsByCategory(cat)</code>, and <code style="color:var(--accent);font-family:monospace">getCategoryColours(cat)</code>. Every other JS file depends on this one — Eamon will also use it.</p>
+        <div class="learn"><strong>DRY principle</strong> — Don't Repeat Yourself. One data file shared by four pages means a description change updates everywhere automatically.</div>
+        <details class="hint">
+          <summary>Code hint — one tool object</summary>
+          <pre><code><span class="ck">const</span> <span class="cv">TOOLS</span> = [
+  {
+    <span class="cs">id</span>: 1,
+    <span class="cs">name</span>: <span class="cv">"ChatGPT"</span>,
+    <span class="cs">category</span>: <span class="cv">"writing"</span>,
+    <span class="cs">description</span>: <span class="cv">"Conversational AI for writing and research."</span>,
+    <span class="cs">pricing</span>: <span class="cv">"freemium"</span>,
+    <span class="cs">url</span>: <span class="cv">"https://chat.openai.com"</span>,
+    <span class="cs">featured</span>: <span class="ck">true</span>
+  },
+  <span class="cm">// add more tools...</span>
+];</code></pre>
+        </details>
+      </div>
+    </div>
+
+    <div class="step" data-owner="mauricio" data-phase="1">
+      <div class="step-header">
+        <span class="step-num">06</span>
+        <span class="badge mauricio">Mauricio</span>
+        <span class="step-title">Build the base HTML template</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="6"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Write a valid HTML5 boilerplate in <code style="color:var(--accent);font-family:monospace">template.html</code>. Include the <code style="color:var(--accent);font-family:monospace">meta charset</code> and <code style="color:var(--accent);font-family:monospace">meta viewport</code> tags, link the font CDN URLs and <code style="color:var(--accent);font-family:monospace">css/style.css</code>, and add a <code style="color:var(--accent);font-family:monospace">&lt;script src="js/tools-data.js"&gt;</code> at the bottom. Open it in a browser — you should see a blank dark page. Once it works, copy it to your four page files. Share it with Eamon before he starts the navbar.</p>
+        <details class="hint">
+          <summary>Code hint — HTML boilerplate</summary>
+          <pre><code><span class="ck">&lt;!DOCTYPE html&gt;</span>
+<span class="cs">&lt;html</span> lang=<span class="cv">"en"</span><span class="cs">&gt;</span>
+<span class="cs">&lt;head&gt;</span>
+  <span class="cs">&lt;meta</span> charset=<span class="cv">"UTF-8"</span><span class="cs">&gt;</span>
+  <span class="cs">&lt;meta</span> name=<span class="cv">"viewport"</span> content=<span class="cv">"width=device-width, initial-scale=1.0"</span><span class="cs">&gt;</span>
+  <span class="cs">&lt;title&gt;</span>Neural — Page Title<span class="cs">&lt;/title&gt;</span>
+  <span class="cs">&lt;link</span> rel=<span class="cv">"stylesheet"</span> href=<span class="cv">"https://cdn.jsdelivr.net/npm/@fontsource/syne@5/700.css"</span><span class="cs">&gt;</span>
+  <span class="cs">&lt;link</span> rel=<span class="cv">"stylesheet"</span> href=<span class="cv">"https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/400.css"</span><span class="cs">&gt;</span>
+  <span class="cs">&lt;link</span> rel=<span class="cv">"stylesheet"</span> href=<span class="cv">"css/style.css"</span><span class="cs">&gt;</span>
+<span class="cs">&lt;/head&gt;</span>
+<span class="cs">&lt;body&gt;</span>
+  <span class="cm">&lt;!-- navbar --&gt;</span>
+  <span class="cs">&lt;main&gt;&lt;/main&gt;</span>
+  <span class="cm">&lt;!-- footer --&gt;</span>
+  <span class="cs">&lt;script</span> src=<span class="cv">"js/tools-data.js"</span><span class="cs">&gt;&lt;/script&gt;</span>
+<span class="cs">&lt;/body&gt;</span>
+<span class="cs">&lt;/html&gt;</span></code></pre>
+        </details>
+      </div>
+    </div>
+
+    <div class="step" data-owner="eamon" data-phase="1">
+      <div class="step-header">
+        <span class="step-num">07</span>
+        <span class="badge eamon">Eamon</span>
+        <span class="step-title">Write the navbar and footer HTML</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="7"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Using Mauricio's template as your starting point, write the navbar HTML with the <code style="color:var(--eamon);font-family:monospace">.navbar</code>, <code style="color:var(--eamon);font-family:monospace">.nav-logo</code>, <code style="color:var(--eamon);font-family:monospace">.nav-links</code> and <code style="color:var(--eamon);font-family:monospace">.nav-link</code> classes from <code style="color:var(--eamon);font-family:monospace">style.css</code>. Include three links: Home, Browse, Saved. Add a <code style="color:var(--eamon);font-family:monospace">&lt;span id="savedCount"&gt;</code> inside the Saved link for the badge. Also write the footer with the <code style="color:var(--eamon);font-family:monospace">.footer</code> class. Paste both into all four page files. On each page, add <code style="color:var(--eamon);font-family:monospace">class="active"</code> to the matching nav link.</p>
+        <div class="learn"><strong>Semantic HTML</strong> — use <code>&lt;nav&gt;</code> for navigation and <code>&lt;footer&gt;</code> for the footer, not generic <code>&lt;div&gt;</code> elements. Screen readers and search engines use these tags to understand page structure.</div>
+      </div>
+    </div>
+
+    <div class="step" data-owner="mauricio" data-phase="1">
+      <div class="step-header">
+        <span class="step-num">08</span>
+        <span class="badge mauricio">Mauricio</span>
+        <span class="step-title">Write the navbar saved-count script</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="8"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>At the bottom of every page (after <code style="color:var(--accent);font-family:monospace">tools-data.js</code>), add a small inline script that reads <code style="color:var(--accent);font-family:monospace">savedTools</code> from localStorage and, if the array has items, updates the text of <code style="color:var(--accent);font-family:monospace">#savedCount</code> and removes the <code style="color:var(--accent);font-family:monospace">hidden</code> class. Add this to all four pages.</p>
+        <details class="hint">
+          <summary>Code hint — update saved badge</summary>
+          <pre><code><span class="ck">const</span> <span class="cv">saved</span> = JSON.<span class="cs">parse</span>(localStorage.<span class="cs">getItem</span>(<span class="cv">'savedTools'</span>) || <span class="cv">'[]'</span>);
+<span class="ck">const</span> <span class="cv">badge</span> = document.<span class="cs">getElementById</span>(<span class="cv">'savedCount'</span>);
+<span class="ck">if</span> (saved.length > 0) {
+  badge.textContent = saved.length;
+  badge.classList.<span class="cs">remove</span>(<span class="cv">'hidden'</span>);
+}</code></pre>
+        </details>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PHASE 2 -->
+  <section class="phase" id="phase-2">
+    <div class="phase-heading">
+      <span class="phase-num">Phase 2</span>
+      <span class="phase-title">Home Page — Mauricio's solo page</span>
+      <span class="phase-week">Week 2</span>
+    </div>
+
+    <div class="step" data-owner="mauricio" data-phase="2">
+      <div class="step-header">
+        <span class="step-num">09</span>
+        <span class="badge mauricio">Mauricio</span>
+        <span class="step-title">Build the index.html structure</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="9"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Inside <code style="color:var(--accent);font-family:monospace">index.html</code>, build the static skeleton: a hero section with headline, subtitle, and search bar shape; a category quick-links row; and an empty <code style="color:var(--accent);font-family:monospace">&lt;div id="featured-grid" class="tools-grid"&gt;&lt;/div&gt;</code> where JavaScript will inject the cards. Add any hero-specific styles in a separate <code style="color:var(--accent);font-family:monospace">css/home.css</code> and link it in the head alongside <code style="color:var(--accent);font-family:monospace">style.css</code>.</p>
+      </div>
+    </div>
+
+    <div class="step" data-owner="mauricio" data-phase="2">
+      <div class="step-header">
+        <span class="step-num">10</span>
+        <span class="badge mauricio">Mauricio</span>
+        <span class="step-title">Render tool cards with JavaScript</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="10"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Create <code style="color:var(--accent);font-family:monospace">js/home.js</code>. Write a function that filters <code style="color:var(--accent);font-family:monospace">TOOLS</code> to <code style="color:var(--accent);font-family:monospace">featured === true</code>, loops through the results, builds an HTML string for each card using the card classes from <code style="color:var(--accent);font-family:monospace">style.css</code>, and sets it as the <code style="color:var(--accent);font-family:monospace">innerHTML</code> of <code style="color:var(--accent);font-family:monospace">#featured-grid</code>. Call the function when the page loads.</p>
+        <div class="learn"><strong>innerHTML</strong> — setting innerHTML on a container is one of the most fundamental DOM manipulation patterns. You build an HTML string in memory and inject it all at once.</div>
+        <details class="hint">
+          <summary>Code hint — render loop pattern</summary>
+          <pre><code><span class="ck">function</span> <span class="cv">renderFeatured</span>() {
+  <span class="ck">const</span> <span class="cv">featured</span> = TOOLS.<span class="cs">filter</span>(t => t.featured);
+  <span class="ck">const</span> <span class="cv">grid</span> = document.<span class="cs">getElementById</span>(<span class="cv">'featured-grid'</span>);
+  grid.innerHTML = featured.<span class="cs">map</span>(tool => <span class="cv">`
+    &lt;div class="tool-card" data-id="${tool.id}"&gt;
+      &lt;div class="card-top"&gt;
+        &lt;span class="cat-badge ${tool.category}"&gt;${tool.category}&lt;/span&gt;
+        &lt;span class="price-badge ${tool.pricing}"&gt;${tool.pricing}&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class="card-body"&gt;
+        &lt;a href="tool.html?id=${tool.id}"&gt;
+          &lt;p class="card-name"&gt;${tool.name}&lt;/p&gt;
+        &lt;/a&gt;
+        &lt;p class="card-desc"&gt;${tool.description}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="card-actions"&gt;
+        &lt;button class="btn btn-save" data-id="${tool.id}"&gt;Save&lt;/button&gt;
+        &lt;a href="${tool.url}" target="_blank" class="btn"&gt;Visit&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `</span>).<span class="cs">join</span>(<span class="cv">''</span>);
+}
+<span class="cv">renderFeatured</span>();</code></pre>
+        </details>
+      </div>
+    </div>
+
+    <div class="step" data-owner="mauricio" data-phase="2">
+      <div class="step-header">
+        <span class="step-num">11</span>
+        <span class="badge mauricio">Mauricio</span>
+        <span class="step-title">Add save / unsave with localStorage</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="11"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Add one click listener to the <code style="color:var(--accent);font-family:monospace">#featured-grid</code> container (event delegation). When a save button is clicked, read the tool ID from <code style="color:var(--accent);font-family:monospace">data-id</code>, read the saved array from localStorage, toggle the ID in or out, write it back, and update the button state.</p>
+        <div class="learn"><strong>Event delegation</strong> — one listener on the parent handles clicks on all children, including elements added dynamically by JS. Much more efficient than attaching a listener to every individual button.</div>
+        <details class="hint">
+          <summary>Code hint — localStorage toggle</summary>
+          <pre><code><span class="ck">function</span> <span class="cv">getSaved</span>() {
+  <span class="ck">return</span> JSON.<span class="cs">parse</span>(localStorage.<span class="cs">getItem</span>(<span class="cv">'savedTools'</span>) || <span class="cv">'[]'</span>);
+}
+
+document.<span class="cs">getElementById</span>(<span class="cv">'featured-grid'</span>)
+  .<span class="cs">addEventListener</span>(<span class="cv">'click'</span>, e => {
+    <span class="ck">if</span> (!e.target.matches(<span class="cv">'.btn-save'</span>)) <span class="ck">return</span>;
+    <span class="ck">const</span> <span class="cv">id</span> = parseInt(e.target.dataset.id);
+    <span class="ck">let</span> <span class="cv">saved</span> = <span class="cv">getSaved</span>();
+    saved = saved.<span class="cs">includes</span>(id)
+      ? saved.<span class="cs">filter</span>(i => i !== id)
+      : [...saved, id];
+    localStorage.<span class="cs">setItem</span>(<span class="cv">'savedTools'</span>, JSON.<span class="cs">stringify</span>(saved));
+    e.target.textContent = saved.<span class="cs">includes</span>(id) ? <span class="cv">'Saved'</span> : <span class="cv">'Save'</span>;
+  });</code></pre>
+        </details>
+      </div>
+    </div>
+
+    <div class="step" data-owner="mauricio" data-phase="2">
+      <div class="step-header">
+        <span class="step-num">12</span>
+        <span class="badge mauricio">Mauricio</span>
+        <span class="step-title">Link cards to the tool detail page</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="12"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>In your card HTML string, wrap the tool name in <code style="color:var(--accent);font-family:monospace">&lt;a href="tool.html?id=${tool.id}"&gt;</code>. Test it — clicking a card name should navigate to <code style="color:var(--accent);font-family:monospace">tool.html?id=1</code>. The detail page won't work yet but the URL should be correct. This pattern (passing data via URL parameters) is how pages communicate without a backend.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PHASE 3 -->
+  <section class="phase" id="phase-3">
+    <div class="phase-heading">
+      <span class="phase-num">Phase 3</span>
+      <span class="phase-title">Saved Page — Eamon's solo page</span>
+      <span class="phase-week">Week 2–3</span>
+    </div>
+
+    <div class="step" data-owner="eamon" data-phase="3">
+      <div class="step-header">
+        <span class="step-num">13</span>
+        <span class="badge eamon">Eamon</span>
+        <span class="step-title">Build the saved.html structure</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="13"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>In <code style="color:var(--eamon);font-family:monospace">saved.html</code>, write a heading ("Saved tools"), a count line with <code style="color:var(--eamon);font-family:monospace">&lt;span id="saved-count"&gt;</code>, a <code style="color:var(--eamon);font-family:monospace">&lt;div id="saved-grid" class="tools-grid"&gt;</code> for the cards, and a <code style="color:var(--eamon);font-family:monospace">&lt;div id="empty-state"&gt;</code> with a message and a link to Browse. Set the empty state to <code style="color:var(--eamon);font-family:monospace">display:none</code> in CSS — your JS will show it when needed.</p>
+      </div>
+    </div>
+
+    <div class="step" data-owner="eamon" data-phase="3">
+      <div class="step-header">
+        <span class="step-num">14</span>
+        <span class="badge eamon">Eamon</span>
+        <span class="step-title">Write saved.js — read and render</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="14"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Create <code style="color:var(--eamon);font-family:monospace">js/saved.js</code>. On page load, read <code style="color:var(--eamon);font-family:monospace">savedTools</code> from localStorage. If empty, show the empty state and return early. Otherwise, loop through each saved ID, call <code style="color:var(--eamon);font-family:monospace">getToolById(id)</code> to find the tool, build card HTML, and set the grid's <code style="color:var(--eamon);font-family:monospace">innerHTML</code>. Update the count span.</p>
+        <div class="learn"><strong>Cross-page state</strong> — data Mauricio's home page saves into localStorage can be read here on a completely different page. This is how web apps share state without a backend server.</div>
+        <details class="hint">
+          <summary>Code hint — read saved tools</summary>
+          <pre><code><span class="ck">function</span> <span class="cv">loadSaved</span>() {
+  <span class="ck">const</span> <span class="cv">ids</span> = JSON.<span class="cs">parse</span>(localStorage.<span class="cs">getItem</span>(<span class="cv">'savedTools'</span>) || <span class="cv">'[]'</span>);
+
+  <span class="ck">if</span> (ids.length === 0) {
+    document.<span class="cs">getElementById</span>(<span class="cv">'empty-state'</span>).style.display = <span class="cv">'block'</span>;
+    <span class="ck">return</span>;
+  }
+
+  <span class="ck">const</span> <span class="cv">tools</span> = ids.<span class="cs">map</span>(id => <span class="cv">getToolById</span>(id)).<span class="cs">filter</span>(Boolean);
+  document.<span class="cs">getElementById</span>(<span class="cv">'saved-count'</span>).textContent = tools.length;
+  document.<span class="cs">getElementById</span>(<span class="cv">'saved-grid'</span>).innerHTML = tools.<span class="cs">map</span>(tool =>
+    <span class="cm">/* same card HTML as home page */</span>
+    <span class="cv">`&lt;div class="tool-card"&gt;...&lt;/div&gt;`</span>
+  ).<span class="cs">join</span>(<span class="cv">''</span>);
+}
+<span class="cv">loadSaved</span>();</code></pre>
+        </details>
+      </div>
+    </div>
+
+    <div class="step" data-owner="eamon" data-phase="3">
+      <div class="step-header">
+        <span class="step-num">15</span>
+        <span class="badge eamon">Eamon</span>
+        <span class="step-title">Add the remove button</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="15"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Add a Remove button to each card in <code style="color:var(--eamon);font-family:monospace">saved.js</code>. Use event delegation on <code style="color:var(--eamon);font-family:monospace">#saved-grid</code>. When clicked, filter the ID out of the localStorage array, save it back, and call <code style="color:var(--eamon);font-family:monospace">loadSaved()</code> again to re-render. Test by saving two tools from the home page, removing them one by one, and confirming the empty state appears.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PHASE 4 -->
+  <section class="phase" id="phase-4">
+    <div class="phase-heading">
+      <span class="phase-num">Phase 4</span>
+      <span class="phase-title">Browse Page — both contribute</span>
+      <span class="phase-week">Week 3</span>
+    </div>
+
+    <div class="step" data-owner="eamon" data-phase="4">
+      <div class="step-header">
+        <span class="step-num">16</span>
+        <span class="badge eamon">Eamon</span>
+        <span class="step-title">Write browse.html layout and filter buttons</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="16"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>In <code style="color:var(--eamon);font-family:monospace">browse.html</code>, add a search <code style="color:var(--eamon);font-family:monospace">&lt;input id="search"&gt;</code> and a category filter row using the <code style="color:var(--eamon);font-family:monospace">.cat-filters</code> and <code style="color:var(--eamon);font-family:monospace">.cat-filter</code> classes. Write one button per category, each with a <code style="color:var(--eamon);font-family:monospace">data-category</code> attribute matching the category name exactly. Include an "All" button with <code style="color:var(--eamon);font-family:monospace">data-category="all"</code> and give it the <code style="color:var(--eamon);font-family:monospace">active</code> class by default. Below, add an empty <code style="color:var(--eamon);font-family:monospace">&lt;div id="browse-grid" class="tools-grid"&gt;</code>.</p>
+      </div>
+    </div>
+
+    <div class="step" data-owner="mauricio" data-phase="4">
+      <div class="step-header">
+        <span class="step-num">17</span>
+        <span class="badge mauricio">Mauricio</span>
+        <span class="step-title">Write browse.js — render and filter</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="17"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Create <code style="color:var(--accent);font-family:monospace">js/browse.js</code>. Write a <code style="color:var(--accent);font-family:monospace">renderTools(arr)</code> function that renders any array of tools into <code style="color:var(--accent);font-family:monospace">#browse-grid</code>. On load, call <code style="color:var(--accent);font-family:monospace">renderTools(TOOLS)</code>. Add a click listener on the filter row — when a button is clicked, move the <code style="color:var(--accent);font-family:monospace">active</code> class to it, call <code style="color:var(--accent);font-family:monospace">getToolsByCategory()</code> with its <code style="color:var(--accent);font-family:monospace">data-category</code>, and re-render.</p>
+        <div class="learn"><strong>Reusable functions</strong> — writing <code>renderTools(array)</code> to accept any array means you call the same function for all tools, filtered tools, and search results. Write the logic once.</div>
+      </div>
+    </div>
+
+    <div class="step" data-owner="mauricio" data-phase="4">
+      <div class="step-header">
+        <span class="step-num">18</span>
+        <span class="badge mauricio">Mauricio</span>
+        <span class="step-title">Add live search</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="18"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Add an <code style="color:var(--accent);font-family:monospace">input</code> event listener on <code style="color:var(--accent);font-family:monospace">#search</code>. On every keypress, filter <code style="color:var(--accent);font-family:monospace">TOOLS</code> to items where <code style="color:var(--accent);font-family:monospace">name</code> or <code style="color:var(--accent);font-family:monospace">description</code> includes the input value (case-insensitive), then call <code style="color:var(--accent);font-family:monospace">renderTools()</code> with the result.</p>
+        <details class="hint">
+          <summary>Code hint — search filter</summary>
+          <pre><code>document.<span class="cs">getElementById</span>(<span class="cv">'search'</span>)
+  .<span class="cs">addEventListener</span>(<span class="cv">'input'</span>, e => {
+    <span class="ck">const</span> <span class="cv">q</span> = e.target.value.<span class="cs">toLowerCase</span>();
+    <span class="ck">const</span> <span class="cv">results</span> = TOOLS.<span class="cs">filter</span>(t =>
+      t.name.<span class="cs">toLowerCase</span>().<span class="cs">includes</span>(q) ||
+      t.description.<span class="cs">toLowerCase</span>().<span class="cs">includes</span>(q)
+    );
+    <span class="cv">renderTools</span>(results);
+  });</code></pre>
+        </details>
+      </div>
+    </div>
+
+    <div class="step" data-owner="both" data-phase="4">
+      <div class="step-header">
+        <span class="step-num">19</span>
+        <span class="badge both">Both</span>
+        <span class="step-title">Review and test the browse page together</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="19"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Test every filter button and the search input together. Confirm the active class moves correctly. Search for "code" and verify only code tools appear. Click a card and confirm it links to <code style="color:var(--accent);font-family:monospace">tool.html?id=N</code>. If the grid layout looks odd with fewer results, add <code style="color:var(--accent);font-family:monospace">align-content: start</code> to <code style="color:var(--accent);font-family:monospace">.tools-grid</code> in the CSS.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PHASE 5 -->
+  <section class="phase" id="phase-5">
+    <div class="phase-heading">
+      <span class="phase-num">Phase 5</span>
+      <span class="phase-title">Tool Detail Page — both contribute</span>
+      <span class="phase-week">Week 3</span>
+    </div>
+
+    <div class="step" data-owner="eamon" data-phase="5">
+      <div class="step-header">
+        <span class="step-num">20</span>
+        <span class="badge eamon">Eamon</span>
+        <span class="step-title">Write tool.html layout</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="20"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Build the static layout of <code style="color:var(--eamon);font-family:monospace">tool.html</code>: a large heading <code style="color:var(--eamon);font-family:monospace">id="tool-name"</code>, category badge <code style="color:var(--eamon);font-family:monospace">id="tool-category"</code>, pricing badge <code style="color:var(--eamon);font-family:monospace">id="tool-pricing"</code>, description paragraph <code style="color:var(--eamon);font-family:monospace">id="tool-desc"</code>, a Visit link <code style="color:var(--eamon);font-family:monospace">id="tool-url"</code>, and a Save button <code style="color:var(--eamon);font-family:monospace">id="tool-save"</code>. Fill them with placeholder text for now — Mauricio's JS will replace the content.</p>
+      </div>
+    </div>
+
+    <div class="step" data-owner="mauricio" data-phase="5">
+      <div class="step-header">
+        <span class="step-num">21</span>
+        <span class="badge mauricio">Mauricio</span>
+        <span class="step-title">Write tool.js — read URL and populate page</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="21"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Create <code style="color:var(--accent);font-family:monospace">js/tool.js</code>. Read the ID using <code style="color:var(--accent);font-family:monospace">new URLSearchParams(window.location.search).get('id')</code>. Call <code style="color:var(--accent);font-family:monospace">getToolById(id)</code>. If null, show an error. Otherwise update each element's <code style="color:var(--accent);font-family:monospace">textContent</code> or <code style="color:var(--accent);font-family:monospace">href</code> with the tool's data, and set the correct classes on the badges.</p>
+        <div class="learn"><strong>URL parameters</strong> are how pages pass data to each other without a database. <code>tool.html?id=3</code> tells the page which tool to load. One of the most common patterns in web development.</div>
+        <details class="hint">
+          <summary>Code hint — read URL parameter</summary>
+          <pre><code><span class="ck">const</span> <span class="cv">id</span> = <span class="ck">new</span> <span class="cs">URLSearchParams</span>(window.location.search).<span class="cs">get</span>(<span class="cv">'id'</span>);
+<span class="ck">const</span> <span class="cv">tool</span> = <span class="cv">getToolById</span>(id);
+
+<span class="ck">if</span> (!tool) {
+  document.<span class="cs">getElementById</span>(<span class="cv">'tool-name'</span>).textContent = <span class="cv">"Tool not found"</span>;
+} <span class="ck">else</span> {
+  document.<span class="cs">getElementById</span>(<span class="cv">'tool-name'</span>).textContent = tool.name;
+  document.<span class="cs">getElementById</span>(<span class="cv">'tool-desc'</span>).textContent = tool.description;
+  document.<span class="cs">getElementById</span>(<span class="cv">'tool-url'</span>).href = tool.url;
+  document.<span class="cs">getElementById</span>(<span class="cv">'tool-category'</span>).textContent = tool.category;
+  document.<span class="cs">getElementById</span>(<span class="cv">'tool-category'</span>).className = <span class="cv">`cat-badge ${tool.category}`</span>;
+}</code></pre>
+        </details>
+      </div>
+    </div>
+
+    <div class="step" data-owner="both" data-phase="5">
+      <div class="step-header">
+        <span class="step-num">22</span>
+        <span class="badge both">Both</span>
+        <span class="step-title">End-to-end test — full user journey</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="22"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Do the full user journey together: Home → click a card → detail page shows correct tool → click Save → go to Saved → tool appears → remove it → it disappears → empty state shows. Fix anything that breaks. Merge all open branches to main and do a clean pull. This is a good moment to check that code comments are in place.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PHASE 6 -->
+  <section class="phase" id="phase-6">
+    <div class="phase-heading">
+      <span class="phase-num">Phase 6</span>
+      <span class="phase-title">Polish &amp; Submit</span>
+      <span class="phase-week">Week 4</span>
+    </div>
+
+    <div class="step" data-owner="both" data-phase="6">
+      <div class="step-header">
+        <span class="step-num">23</span>
+        <span class="badge both">Both</span>
+        <span class="step-title">Audit code comments</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="23"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Go through every HTML, CSS, and JS file. Every function, every major HTML section, and every file header must have an <code style="color:var(--accent);font-family:monospace">// Author: Mauricio</code> or <code style="color:var(--accent);font-family:monospace">// Author: Eamon</code> and a <code style="color:var(--accent);font-family:monospace">// Description:</code> comment. This is worth marks and is the primary way the examiner determines who built what. Do not skip it.</p>
+      </div>
+    </div>
+
+    <div class="step" data-owner="eamon" data-phase="6">
+      <div class="step-header">
+        <span class="step-num">24</span>
+        <span class="badge eamon">Eamon</span>
+        <span class="step-title">Test and fix on mobile</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="24"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Open Chrome DevTools (F12), click the device toolbar, and select iPhone SE (375px). Check every page. Look for: text overflowing, grid not stacking to one column, navbar links too cramped, buttons too small to tap. Fix each issue in the <code style="color:var(--eamon);font-family:monospace">@media (max-width: 600px)</code> block in <code style="color:var(--eamon);font-family:monospace">style.css</code>.</p>
+      </div>
+    </div>
+
+    <div class="step" data-owner="both" data-phase="6">
+      <div class="step-header">
+        <span class="step-num">25</span>
+        <span class="badge both">Both</span>
+        <span class="step-title">Write test cases</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="25"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Create <code style="color:var(--accent);font-family:monospace">test-cases.md</code> in the root. Write at least 8 test cases. Each needs: what you tested, what you expected, what actually happened. Good tests: save a tool and check Saved page; filter by category and verify results; search for a tool name; click a card and confirm the detail page loads correctly; remove a saved tool; confirm empty state shows; check on mobile width.</p>
+      </div>
+    </div>
+
+    <div class="step" data-owner="both" data-phase="6">
+      <div class="step-header">
+        <span class="step-num">26</span>
+        <span class="badge both">Both</span>
+        <span class="step-title">Record individual videos</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="26"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Each person records their own 5-minute walkthrough. Show the code in VS Code — not just the running website. Mauricio: walk through <code style="color:var(--accent);font-family:monospace">style.css</code>, <code style="color:var(--accent);font-family:monospace">tools-data.js</code>, <code style="color:var(--accent);font-family:monospace">home.js</code>, and the browse/tool JS. Eamon: walk through the navbar/footer HTML, <code style="color:var(--eamon);font-family:monospace">saved.js</code>, and the browse/tool HTML. The video must explain the code — a demo-only video loses 50% of your individual mark.</p>
+        <div class="learn"><strong>Tip:</strong> Use OBS (free) or your laptop's built-in screen recorder. Record VS Code with the code visible. You don't need to be polished — just clear and honest about what you built.</div>
+      </div>
+    </div>
+
+    <div class="step" data-owner="both" data-phase="6">
+      <div class="step-header">
+        <span class="step-num">27</span>
+        <span class="badge both">Both</span>
+        <span class="step-title">Final merge and Moodle submission</span>
+        <label class="cb-wrap"><input type="checkbox" data-step="27"><span class="cb-box"></span></label>
+        <span class="collapse-arrow">›</span>
+      </div>
+      <div class="step-body">
+        <p>Merge all open branches into main. Do a fresh clone of main into a new folder and open the site from there — this catches any missing files that only existed on your machine but were never committed. Both Mauricio and Eamon download the project as a ZIP from GitHub and submit it individually on Moodle, along with their video. Both must submit — if one doesn't, that person gets zero.</p>
+        <div class="learn"><strong>Deadline: Friday 1 May 2026.</strong> Group details were due Monday 13 April — email your lecturer now if you haven't already.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="tooltip"></div>
+
+<script>
+  const TOTAL = 27;
+
+  const phases = {
+    f0: [1,3], f1: [4,8], f2: [9,12],
+    f3: [13,15], f4: [16,19], f5: [20,22], f6: [23,27]
+  };
+
+  // Load progress.json from the repo (GitHub Pages serves it as a static file)
+  async function loadProgress() {
+    try {
+      const res = await fetch('./progress.json?t=' + Date.now());
+      if (!res.ok) throw new Error('not found');
+      return await res.json();
+    } catch {
+      return { done: [], log: [] };
+    }
+  }
+
+  function applyProgress(data) {
+    const { done, log } = data;
+
+    document.querySelectorAll('input[type=checkbox][data-step]').forEach(cb => {
+      const step = parseInt(cb.dataset.step);
+      const isDone = done.includes(step);
+      cb.checked = isDone;
+
+      const stepEl = cb.closest('.step');
+      if (!stepEl) return;
+      stepEl.classList.toggle('done', isDone);
+
+      // Show completion metadata in the header
+      if (isDone) {
+        const entry = log.find(l => l.step === step);
+        if (entry && !stepEl.querySelector('.completion-info')) {
+          const info = document.createElement('span');
+          info.className = 'completion-info';
+          const date = new Date(entry.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+          info.textContent = entry.author + ' · ' + entry.sha + ' · ' + date;
+          // Insert before the checkbox
+          cb.closest('.cb-wrap').before(info);
+        }
+      }
+    });
+
+    updateSidebar(done);
+  }
+
+  function updateSidebar(done) {
+    document.getElementById('prog-text').textContent = done.length + ' / ' + TOTAL;
+    document.getElementById('prog-fill').style.width = ((done.length / TOTAL) * 100) + '%';
+
+    Object.entries(phases).forEach(([id, [start, end]]) => {
+      const total = end - start + 1;
+      const count = done.filter(n => n >= start && n <= end).length;
+      const el = document.getElementById(id);
+      if (el) {
+        el.textContent = count + '/' + total;
+        el.parentElement.classList.toggle('complete', count === total);
+      }
+    });
+  }
+
+  // Checkboxes are read-only — progress is driven by commits
+  document.addEventListener('change', e => {
+    if (!e.target.matches('input[type=checkbox][data-step]')) return;
+    const step = e.target.dataset.step;
+    // Revert the click
+    e.target.checked = !e.target.checked;
+    showTooltip('Commit with [done:' + step + '] to mark this complete');
+  });
+
+  function showTooltip(msg) {
+    const tip = document.getElementById('tooltip');
+    tip.textContent = msg;
+    tip.style.opacity = '1';
+    clearTimeout(tip._timer);
+    tip._timer = setTimeout(() => tip.style.opacity = '0', 3000);
+  }
+
+  // Collapse/expand step bodies on header click
+  document.addEventListener('click', e => {
+    const header = e.target.closest('.step-header');
+    if (!header || e.target.closest('.cb-wrap')) return;
+    header.closest('.step').classList.toggle('collapsed');
+  });
+
+  loadProgress().then(applyProgress);
+</script>
+
+</body>
+</html>
