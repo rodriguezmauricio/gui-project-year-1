@@ -26,6 +26,7 @@
 | `git checkout -b feature/home-page` | Create a new branch and switch to it |
 | `git checkout main` | Switch back to the main branch |
 | `git push -u origin feature/home-page` | Push a new branch to GitHub for the first time |
+| `git merge feature/home-page` | Merge a branch into whichever branch you're currently on |
 | `git branch -d feature/home-page` | Delete a branch locally after it's been merged |
 
 > **Rule:** Never commit directly to `main`. Every piece of work gets its own branch. Open a Pull Request on GitHub, the other person reviews it, then merge.
@@ -59,8 +60,8 @@
 
 | Command | What it does |
 |---|---|
-| `git config user.email "g00485734@atu.ie"` | Set email for this repo only (no `--global` flag) |
-| `git config --global user.name "Mauricio Rodriguez"` | Set name globally across all repos |
+| `git config user.email "YOUREMAIL@atu.ie"` | Set email for this repo only (no `--global` flag) |
+| `git config --global user.name "YOUR NAME"` | Set name globally across all repos |
 | `git remote -v` | Show which GitHub repo this folder is connected to |
 
 ---
