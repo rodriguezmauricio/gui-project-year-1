@@ -12,6 +12,7 @@ Description: Shared styles for all pages.
     --bg: #09090c;
     --surface: #111118;
     --border: #1e1e2a;
+    --border2: #2a2a3c;
     --text: #f0eff8;
     --text-muted: #a1a1aa;
     --accent: #a8ff3e;
@@ -128,4 +129,234 @@ Description: styles for footer.
 
 /*END FOOTER STYLES =====================
 Author: Eamonn Corban
+=========================================*/
+
+
+/*BEGIN CARDS STYLES ====================
+Navigation styles
+Author: Mauricio Rodriguez
+Description: styles for footer.
+=========================================*/
+
+.tool-card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    cursor: pointer;
+    transition: border-color var(--transition);
+}
+
+.tool-card:hover{
+    border-color: var(--border2);
+}
+
+.card-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-body{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-name{
+    font-family: var(--font-display);
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.card-desc{
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.card-actions{
+    display: flex;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+/*END CARDS STYLES ======================
+Author: Mauricio Rodriguez
+=========================================*/
+
+/*BEGIN CATEGORY STYLES =================
+Category styles
+Author: Mauricio Rodriguez
+Description: styles for footer.
+=========================================*/
+
+.category-badge{
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 999px;
+}
+
+.category-badge.writing{
+    background: #2D1257;
+    color: #C4A0F5;
+}
+
+.category-badge.image{
+    background: #3D0A18;
+    color: #C4A0F5;
+}
+
+.category-badge.code{
+    background: #0D1F4A;
+    color: #93C5FD;
+}
+
+.category-badge.audio{
+    background: #042520;
+    color: #5EEAD4;
+}
+.category-badge.video{
+    background: #3A1105;
+    color: #FDBA74;
+}
+
+.category-badge.research{
+    background: #1E1500;
+    color: #FDE68A;
+}
+
+.category-badge.productivity{
+    background: #052010;
+    color: #6EE7B7;
+}
+
+/*END CATEGORY STYLES ===================
+Author: Mauricio Rodriguez
+=========================================*/
+
+/*BEGIN PRICE STYLES ====================
+Price styles
+Author: Mauricio Rodriguez
+Description: styles for footer.
+=========================================*/
+
+.price-badge{
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+}
+
+.price-badge.free{
+    color: var(--accent);
+}
+/*END PRICE STYLES ======================
+Author: Mauricio Rodriguez
+=========================================*/
+
+/*BEGIN BUTTONS STYLES ==================
+Buttons styles
+Author: Mauricio Rodriguez
+Description: styles for footer.
+=========================================*/
+
+.btn{
+    padding: 7px 14px;
+    font-size: 13px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+    background: transparent;
+    cursor: pointer;
+    transition: background var(--transition);
+}
+
+.btn:hover{
+    background: #1a1a1a;
+}
+
+.btn-accent{
+    background: var(--accent);
+    color: var(--accent-dark);
+    border-color: var(--accent);
+    font-weight: 500;
+}
+
+.btn-accent:hover{
+    opacity: 0.9;
+}
+
+/*END BUTTONS STYLES ====================
+Author: Mauricio Rodriguez
+=========================================*/
+
+/*BEGIN TOOLS GRID STYLES ===============
+Tools grid styles
+Author: Mauricio Rodriguez
+Description: styles for footer.
+=========================================*/
+
+.tools-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+/*END TOOLS GRID STYLES =================
+Author: Mauricio Rodriguez
+=========================================*/
+
+/*BEGIN CATEGORY FILTERS STYLES ===========
+Tools grid styles
+Author: Mauricio Rodriguez
+Description: styles for footer.
+=========================================*/
+
+.cat-filters{
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 16px 40px;
+    border-bottom: 1px solid var(--border);
+}
+
+.cat-filters{
+    padding: 6px 14px;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 16px 40px;
+    border-bottom: 1px solid var(--border);
+}
+
+.cat-filter{
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);    
+    background: transparent;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.cat-filter:hover{
+    color: var(--text);
+}
+
+.cat-filter:active{
+    background: var(--accent);
+    color: var(--accent-dark);
+    border-color: var(--accent);
+}
+
+
+/*END CATEGORY FILTERS STYLES ===========
+Author: Mauricio Rodriguez
 =========================================*/
