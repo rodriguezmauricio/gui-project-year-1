@@ -86,7 +86,6 @@ h3{
 }
 
 
-
 .container{
     display: flex;
     flex-direction: column;
@@ -115,14 +114,22 @@ h3{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
 
+input:focus {
+    outline: none;
+    border: none;
 }
 
 .search-bar{
     background: transparent;
     border: none;
     padding: 8px 16px;
+}
 
+.search-icon{
+    padding: 10px;
+    cursor: pointer;
 }
 
 /*END SHARED STYLES =====================
@@ -378,13 +385,6 @@ Description: styles for footer.
     border-bottom: 1px solid var(--border);
 }
 
-.cat-filters{
-    padding: 6px 14px;
-    gap: 8px;
-    flex-wrap: wrap;
-    padding: 16px 40px;
-    border-bottom: 1px solid var(--border);
-}
 
 .cat-filter{
     padding: 6px 14px;
