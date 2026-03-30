@@ -1,0 +1,181 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1rem 0;display:flex;flex-direction:column;gap:1.25rem}
+.panel{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem}
+.label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px}
+
+.phase{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);overflow:hidden;margin-bottom:10px}
+.phase:last-child{margin-bottom:0}
+.phase-header{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--color-background-secondary)}
+.phase-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0}
+.phase-title{font-size:14px;font-weight:500;color:var(--color-text-primary);flex:1}
+.phase-week{font-size:11px;color:var(--color-text-tertiary)}
+.phase-body{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+
+.owner-row{display:flex;align-items:flex-start;gap:10px}
+.owner-badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:999px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.badge-mauricio{background:#E1F5EE;color:#085041}
+.badge-eamon{background:#E6F1FB;color:#185FA5}
+.badge-both{background:#EEEDFE;color:#3C3489}
+@media(prefers-color-scheme:dark){
+  .badge-mauricio{background:#04342C;color:#9FE1CB}
+  .badge-eamon{background:#042C53;color:#85B7EB}
+  .badge-both{background:#26215C;color:#CECBF6}
+}
+.owner-content{}
+.owner-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px}
+.owner-items{font-size:12px;color:var(--color-text-secondary);line-height:1.7}
+
+.pages-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.page-card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px 14px}
+.page-card.highlight-mauricio{border-color:#1D9E75;background:rgba(29,158,117,0.04)}
+.page-card.highlight-eamon{border-color:#378ADD;background:rgba(55,138,221,0.04)}
+.page-card.highlight-both{border-color:#7F77DD;background:rgba(127,119,221,0.04)}
+.page-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.page-name{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.page-file{font-family:var(--font-mono);font-size:11px;color:var(--color-text-tertiary)}
+.page-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.55;margin-bottom:8px}
+.page-owns{font-size:11px;color:var(--color-text-tertiary)}
+
+.video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.video-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px}
+.video-name{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px}
+.video-item{font-size:12px;color:var(--color-text-secondary);padding:3px 0;border-bottom:0.5px solid var(--color-border-tertiary);line-height:1.4}
+.video-item:last-child{border-bottom:none}
+
+.callout{border-left:3px solid #7F77DD;background:rgba(127,119,221,0.06);border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;padding:10px 14px;font-size:13px;color:var(--color-text-secondary);line-height:1.6}
+.callout strong{color:var(--color-text-primary);font-weight:500}
+
+button{cursor:pointer;font-size:13px;padding:9px 18px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-primary);margin-top:4px}
+button:hover{background:var(--color-background-secondary)}
+</style>
+
+<div class="wrap">
+
+  <div class="panel">
+    <div class="label">3-phase plan</div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num" style="background:#EEEDFE;color:#3C3489">1</div>
+        <span class="phase-title">Foundation — both do this together</span>
+        <span class="phase-week">Week 1</span>
+      </div>
+      <div class="phase-body">
+        <div class="owner-row">
+          <span class="owner-badge badge-mauricio">Mauricio</span>
+          <div class="owner-content">
+            <div class="owner-title">CSS foundation + data file</div>
+            <div class="owner-items">
+              style.css — all CSS variables (colours, fonts, spacing, border-radius)<br>
+              tools-data.js — the array of all 10–15 AI tools<br>
+              Base HTML template all pages will copy from
+            </div>
+          </div>
+        </div>
+        <div class="owner-row">
+          <span class="owner-badge badge-eamon">Eamon</span>
+          <div class="owner-content">
+            <div class="owner-title">Shared components</div>
+            <div class="owner-items">
+              navbar HTML + CSS (used on every page)<br>
+              footer HTML + CSS<br>
+              Responsive breakpoints in style.css
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num" style="background:#E1F5EE;color:#085041">2</div>
+        <span class="phase-title">Solo pages — one page each, fully yours</span>
+        <span class="phase-week">Weeks 2–3</span>
+      </div>
+      <div class="phase-body">
+        <div class="owner-row">
+          <span class="owner-badge badge-mauricio">Mauricio</span>
+          <div class="owner-content">
+            <div class="owner-title">Home page (index.html)</div>
+            <div class="owner-items">
+              Hero section, featured tools grid, category quick-links<br>
+              JS: render tool cards from tools-data.js, save to localStorage on click
+            </div>
+          </div>
+        </div>
+        <div class="owner-row">
+          <span class="owner-badge badge-eamon">Eamon</span>
+          <div class="owner-content">
+            <div class="owner-title">Saved tools page (saved.html)</div>
+            <div class="owner-items">
+              Grid of saved tools, remove button on each card<br>
+              JS: read from localStorage, render cards, handle empty state<br>
+              Good beginner JS — clear, self-contained pattern
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num" style="background:#E6F1FB;color:#185FA5">3</div>
+        <span class="phase-title">Shared pages — both contribute, both can explain</span>
+        <span class="phase-week">Weeks 3–4</span>
+      </div>
+      <div class="phase-body">
+        <div class="owner-row">
+          <span class="owner-badge badge-both">Both</span>
+          <div class="owner-content">
+            <div class="owner-title">Browse page (browse.html)</div>
+            <div class="owner-items">
+              Eamon: HTML grid layout + category filter buttons<br>
+              Mauricio: JS filtering, search input, sort logic
+            </div>
+          </div>
+        </div>
+        <div class="owner-row">
+          <span class="owner-badge badge-both">Both</span>
+          <div class="owner-content">
+            <div class="owner-title">Tool detail page (tool.html)</div>
+            <div class="owner-items">
+              Eamon: HTML layout — big title, description, pricing, category badge<br>
+              Mauricio: JS — read tool ID from URL, pull matching tool from data, render it
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="label">What each person can explain in their video</div>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-name">Your video (5 min)</div>
+        <div class="video-item">CSS variables + design system mauricio set up</div>
+        <div class="video-item">tools-data.js structure and how it's used</div>
+        <div class="video-item">Home page — how JS renders tool cards</div>
+        <div class="video-item">Browse page — the filter &amp; search JS</div>
+        <div class="video-item">Tool detail — reading the URL parameter</div>
+      </div>
+      <div class="video-card">
+        <div class="video-name">Eamon's video (5 min)</div>
+        <div class="video-item">Navbar + footer components they built</div>
+        <div class="video-item">Responsive CSS and media queries</div>
+        <div class="video-item">Saved page — localStorage read &amp; render</div>
+        <div class="video-item">Browse page HTML layout + filter buttons</div>
+        <div class="video-item">Tool detail HTML — the page structure</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Why this works for the marking scheme:</strong> Code comments will clearly show who wrote what. Each person has solo work they fully understand, plus shared pages they contributed to — so neither of mauricio is bluffing in the video.
+  </div>
+
+  <button onclick="sendPrompt('Lets go with this split. Generate the base HTML template and style.css foundation I should start with.')">Generate the foundation files ↗</button>
+
+</div>

@@ -384,7 +384,7 @@
   </header>
 
   <div class="banner">
-    <strong>How progress tracking works</strong> — this page reads <code>progress.json</code> from the repo on every load. To mark a step done, include <code>[done:N]</code> in your commit message when pushing to main. You can mark multiple at once: <code>[done:1,2,3]</code>. GitHub Actions picks it up, updates the JSON, and both of you see the change next time you open the page.
+    <strong>How progress tracking works</strong> — this page reads <code>progress.json</code> from the repo on every load. To mark a step done, include <code>[done:N]</code> in your commit message when pushing to main. Mauricio can mark multiple at once: <code>[done:1,2,3]</code>. GitHub Actions picks it up, updates the JSON, and both of Mauricio see the change next time Mauricio open the page.
   </div>
 
 
@@ -406,14 +406,14 @@
       </div>
       <div class="step-body">
         <p>Go to github.com and create a new public repository. Name it <code style="color:var(--accent);font-family:monospace">gui-project-year-1</code>. Tick "Add a README file". Both Mauricio and Eamon clone it to their local machines before doing anything else.</p>
-        <div class="learn"><strong>Why GitHub?</strong> Two people cannot safely edit the same files without a version control system. Git tracks every change, who made it, and lets you merge work without overwriting each other.</div>
+        <div class="learn"><strong>Why GitHub?</strong> Two people cannot safely edit the same files without a version control system. Git tracks every change, who made it, and lets Mauricio merge work without overwriting each other.</div>
         <details class="hint">
           <summary>Code hint — clone and verify</summary>
           <pre><code><span class="cm"># Clone the repo to your machine</span>
 git clone https://github.com/YOURNAME/gui-project-year-1.git
 cd gui-project-year-1
 
-<span class="cm"># Confirm you are on the main branch</span>
+<span class="cm"># Confirm Mauricio are on the main branch</span>
 git branch</code></pre>
         </details>
       </div>
@@ -429,7 +429,7 @@ git branch</code></pre>
       </div>
       <div class="step-body">
         <p>Inside the project folder, create three folders: <code style="color:var(--accent);font-family:monospace">css/</code>, <code style="color:var(--accent);font-family:monospace">js/</code>, and <code style="color:var(--accent);font-family:monospace">images/</code>. In the root, create four empty HTML files: <code style="color:var(--accent);font-family:monospace">index.html</code>, <code style="color:var(--accent);font-family:monospace">browse.html</code>, <code style="color:var(--accent);font-family:monospace">tool.html</code>, <code style="color:var(--accent);font-family:monospace">saved.html</code>. Also add <code style="color:var(--accent);font-family:monospace">progress.json</code> with contents <code style="color:var(--accent);font-family:monospace">{"done":[],"log":[]}</code> and the <code style="color:var(--accent);font-family:monospace">.github/workflows/update-progress.yml</code> file. Commit and push so Eamon has the same structure from the start.</p>
-        <div class="learn"><strong>Why structure first?</strong> Your marking scheme awards marks specifically for file organisation. Setting it up before writing code means neither of you accidentally saves files in the wrong place.</div>
+        <div class="learn"><strong>Why structure first?</strong> Your marking scheme awards marks specifically for file organisation. Setting it up before writing code means neither of Mauricio accidentally saves files in the wrong place.</div>
         <details class="hint">
           <summary>Code hint — commit the structure</summary>
           <pre><code>git add .
@@ -448,8 +448,8 @@ git push origin main</code></pre>
         <span class="collapse-arrow">›</span>
       </div>
       <div class="step-body">
-        <p>Agree on one rule and stick to it: <strong style="color:var(--text)">never commit directly to main</strong>. Every piece of work gets its own branch. When finished, open a Pull Request on GitHub, the other person reviews it, then you merge. This means <code style="color:var(--accent);font-family:monospace">main</code> always contains reviewed, working code.</p>
-        <div class="learn"><strong>Why branches?</strong> Branches let both of you work simultaneously without conflicts. If something breaks on your branch, main is unaffected. This is the single most important real-world habit from this project.</div>
+        <p>Agree on one rule and stick to it: <strong style="color:var(--text)">never commit directly to main</strong>. Every piece of work gets its own branch. When finished, open a Pull Request on GitHub, the other person reviews it, then Mauricio merge. This means <code style="color:var(--accent);font-family:monospace">main</code> always contains reviewed, working code.</p>
+        <div class="learn"><strong>Why branches?</strong> Branches let both of Mauricio work simultaneously without conflicts. If something breaks on your branch, main is unaffected. This is the single most important real-world habit from this project.</div>
         <details class="hint">
           <summary>Code hint — branch workflow</summary>
           <pre><code><span class="cm"># Mauricio starts the home page</span>
@@ -485,7 +485,7 @@ git push -u origin feature/saved-page</code></pre>
       </div>
       <div class="step-body">
         <p>Create <code style="color:var(--accent);font-family:monospace">css/style.css</code>. Use the reference file as a guide — type it out yourself, do not copy-paste. Start with the <code style="color:var(--accent);font-family:monospace">:root</code> block and write each variable. Then work through the sections in order: reset, base typography, container, navbar, footer, tool card, badges, buttons, grid, responsive.</p>
-        <div class="learn"><strong>CSS variables</strong> let you define a value once and reuse it everywhere. Changing <code>--accent</code> updates the whole site in one edit. This is one of the most important patterns in modern CSS.</div>
+        <div class="learn"><strong>CSS variables</strong> let Mauricio define a value once and reuse it everywhere. Changing <code>--accent</code> updates the whole site in one edit. This is one of the most important patterns in modern CSS.</div>
       </div>
     </div>
 
@@ -527,7 +527,7 @@ git push -u origin feature/saved-page</code></pre>
         <span class="collapse-arrow">›</span>
       </div>
       <div class="step-body">
-        <p>Write a valid HTML5 boilerplate in <code style="color:var(--accent);font-family:monospace">template.html</code>. Include the <code style="color:var(--accent);font-family:monospace">meta charset</code> and <code style="color:var(--accent);font-family:monospace">meta viewport</code> tags, link the font CDN URLs and <code style="color:var(--accent);font-family:monospace">css/style.css</code>, and add a <code style="color:var(--accent);font-family:monospace">&lt;script src="js/tools-data.js"&gt;</code> at the bottom. Open it in a browser — you should see a blank dark page. Once it works, copy it to your four page files. Share it with Eamon before he starts the navbar.</p>
+        <p>Write a valid HTML5 boilerplate in <code style="color:var(--accent);font-family:monospace">template.html</code>. Include the <code style="color:var(--accent);font-family:monospace">meta charset</code> and <code style="color:var(--accent);font-family:monospace">meta viewport</code> tags, link the font CDN URLs and <code style="color:var(--accent);font-family:monospace">css/style.css</code>, and add a <code style="color:var(--accent);font-family:monospace">&lt;script src="js/tools-data.js"&gt;</code> at the bottom. Open it in a browser — Mauricio should see a blank dark page. Once it works, copy it to your four page files. Share it with Eamon before he starts the navbar.</p>
         <details class="hint">
           <summary>Code hint — HTML boilerplate</summary>
           <pre><code><span class="ck">&lt;!DOCTYPE html&gt;</span>
@@ -620,7 +620,7 @@ git push -u origin feature/saved-page</code></pre>
       </div>
       <div class="step-body">
         <p>Create <code style="color:var(--accent);font-family:monospace">js/home.js</code>. Write a function that filters <code style="color:var(--accent);font-family:monospace">TOOLS</code> to <code style="color:var(--accent);font-family:monospace">featured === true</code>, loops through the results, builds an HTML string for each card using the card classes from <code style="color:var(--accent);font-family:monospace">style.css</code>, and sets it as the <code style="color:var(--accent);font-family:monospace">innerHTML</code> of <code style="color:var(--accent);font-family:monospace">#featured-grid</code>. Call the function when the page loads.</p>
-        <div class="learn"><strong>innerHTML</strong> — setting innerHTML on a container is one of the most fundamental DOM manipulation patterns. You build an HTML string in memory and inject it all at once.</div>
+        <div class="learn"><strong>innerHTML</strong> — setting innerHTML on a container is one of the most fundamental DOM manipulation patterns. Mauricio build an HTML string in memory and inject it all at once.</div>
         <details class="hint">
           <summary>Code hint — render loop pattern</summary>
           <pre><code><span class="ck">function</span> <span class="cv">renderFeatured</span>() {
@@ -797,7 +797,7 @@ document.<span class="cs">getElementById</span>(<span class="cv">'featured-grid'
       </div>
       <div class="step-body">
         <p>Create <code style="color:var(--accent);font-family:monospace">js/browse.js</code>. Write a <code style="color:var(--accent);font-family:monospace">renderTools(arr)</code> function that renders any array of tools into <code style="color:var(--accent);font-family:monospace">#browse-grid</code>. On load, call <code style="color:var(--accent);font-family:monospace">renderTools(TOOLS)</code>. Add a click listener on the filter row — when a button is clicked, move the <code style="color:var(--accent);font-family:monospace">active</code> class to it, call <code style="color:var(--accent);font-family:monospace">getToolsByCategory()</code> with its <code style="color:var(--accent);font-family:monospace">data-category</code>, and re-render.</p>
-        <div class="learn"><strong>Reusable functions</strong> — writing <code>renderTools(array)</code> to accept any array means you call the same function for all tools, filtered tools, and search results. Write the logic once.</div>
+        <div class="learn"><strong>Reusable functions</strong> — writing <code>renderTools(array)</code> to accept any array means Mauricio call the same function for all tools, filtered tools, and search results. Write the logic once.</div>
       </div>
     </div>
 
@@ -949,7 +949,7 @@ document.<span class="cs">getElementById</span>(<span class="cv">'featured-grid'
         <span class="collapse-arrow">›</span>
       </div>
       <div class="step-body">
-        <p>Create <code style="color:var(--accent);font-family:monospace">test-cases.md</code> in the root. Write at least 8 test cases. Each needs: what you tested, what you expected, what actually happened. Good tests: save a tool and check Saved page; filter by category and verify results; search for a tool name; click a card and confirm the detail page loads correctly; remove a saved tool; confirm empty state shows; check on mobile width.</p>
+        <p>Create <code style="color:var(--accent);font-family:monospace">test-cases.md</code> in the root. Write at least 8 test cases. Each needs: what Mauricio tested, what Mauricio expected, what actually happened. Good tests: save a tool and check Saved page; filter by category and verify results; search for a tool name; click a card and confirm the detail page loads correctly; remove a saved tool; confirm empty state shows; check on mobile width.</p>
       </div>
     </div>
 
@@ -963,7 +963,7 @@ document.<span class="cs">getElementById</span>(<span class="cv">'featured-grid'
       </div>
       <div class="step-body">
         <p>Each person records their own 5-minute walkthrough. Show the code in VS Code — not just the running website. Mauricio: walk through <code style="color:var(--accent);font-family:monospace">style.css</code>, <code style="color:var(--accent);font-family:monospace">tools-data.js</code>, <code style="color:var(--accent);font-family:monospace">home.js</code>, and the browse/tool JS. Eamon: walk through the navbar/footer HTML, <code style="color:var(--eamon);font-family:monospace">saved.js</code>, and the browse/tool HTML. The video must explain the code — a demo-only video loses 50% of your individual mark.</p>
-        <div class="learn"><strong>Tip:</strong> Use OBS (free) or your laptop's built-in screen recorder. Record VS Code with the code visible. You don't need to be polished — just clear and honest about what you built.</div>
+        <div class="learn"><strong>Tip:</strong> Use OBS (free) or your laptop's built-in screen recorder. Record VS Code with the code visible. Mauricio don't need to be polished — just clear and honest about what Mauricio built.</div>
       </div>
     </div>
 
@@ -977,7 +977,7 @@ document.<span class="cs">getElementById</span>(<span class="cv">'featured-grid'
       </div>
       <div class="step-body">
         <p>Merge all open branches into main. Do a fresh clone of main into a new folder and open the site from there — this catches any missing files that only existed on your machine but were never committed. Both Mauricio and Eamon download the project as a ZIP from GitHub and submit it individually on Moodle, along with their video. Both must submit — if one doesn't, that person gets zero.</p>
-        <div class="learn"><strong>Deadline: Friday 1 May 2026.</strong> Group details were due Monday 13 April — email your lecturer now if you haven't already.</div>
+        <div class="learn"><strong>Deadline: Friday 1 May 2026.</strong> Group details were due Monday 13 April — email your lecturer now if Mauricio haven't already.</div>
       </div>
     </div>
   </section>
