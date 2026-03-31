@@ -216,3 +216,4 @@ function updateSavedBadge(){
     badge.classList.add("hidden")
   }
 }
+
