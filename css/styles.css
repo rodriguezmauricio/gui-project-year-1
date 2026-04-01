@@ -407,6 +407,12 @@ Description: styles for footer.
     border-color: var(--accent);
 }
 
+.cat-filter.active{
+    background: var(--accent);
+    color: var(--accent-dark);
+    border-color: var(--accent);
+}
+
 /*END CATEGORY FILTERS STYLES ===========
 Author: Mauricio Rodriguez
 =========================================*/

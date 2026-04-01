@@ -1,4 +1,4 @@
-s//---------------------------------------------------
+//---------------------------------------------------
 //01: Tools array
 //---------------------------------------------------
 // An array with the featured tools.
@@ -115,6 +115,41 @@ const TOOLS = [
   }
 ];
 
+const CATEGORIES = [
+  {
+    id: "0",
+    name: "All tools",
+  },
+    {
+    id: "1",
+    name: "Writing",
+  },
+    {
+    id: "2",
+    name: "Image",
+  },
+    {
+    id: "3",
+    name: "Code",
+  },
+    {
+    id: "4",
+    name: "Video",
+  },
+    {
+    id: "5",
+    name: "Audio",
+  },
+    {
+    id: "6",
+    name: "Research",
+  },
+    {
+    id: "7",
+    name: "Productivity",
+  },
+]
+
 //---------------------------------------------------
 //02: Javascript helper functions BEGGINING
 //---------------------------------------------------
@@ -220,6 +255,8 @@ function updateSavedBadge(){
 
 // Function: buildCardHtml
 // Description: Builds the html for the tool cards.
+// we pass the tool as a parameter and since it's an object,
+// we can use the dot notation to get its content.
 function buildCardHtml(tool){
   const saved = getSaved();
   const isSaved = saved.includes(tool.id);
@@ -247,4 +284,53 @@ function buildCardHtml(tool){
     </div>
   </div>
   `
+}
+
+// update the navbar badge on every page load
+updateSavedBadge();
+
+// Home page
+// if #featured-grid exists, it renders the cards and save button clicks
+
+const featuredGrid = document.getElementById("featured-grid");
+
+if(featuredGrid){
+  function renderFeatured(){
+    const featured = TOOLS.filter((tool) => {
+      return tool.featured === true;
+    })
+
+    // return the card for every featured tool
+    featuredGrid.innerHTML = featured.map((tool) => {
+      return buildCardHtml(tool)
+    }).join("");
+  }
+
+  featuredGrid.addEventListener("click", (e) => {
+    if(!e.target.classList.contains("btn-save")){
+      return;
+    }
+
+    const id = parseInt(e.target.dataset.id);
+    const isSaved = saveTool(id);
+
+    e.target.textContent = isSaved ? "Saved" : "Save";
+    e.target.classList.toggle("active", isSaved)
+  })
+
+  renderFeatured();
+}
+
+const catFilters = document.getElementById("cat-filters");
+
+if(catFilters){
+  catFilters.innerHTML = CATEGORIES.map(cat => {
+    const isAll = cat.name === "All tools";
+    const href = isAll
+    ? "browse.html"
+    : `browse.html?category=${cat.name.toLowerCase().trim()}`
+    const activeClass = isAll ? "cat-filter active" : "cat-filter";
+
+    return `<a href=${href} class="${activeClass}">${cat.name}</a>`
+  }).join("");
 }
