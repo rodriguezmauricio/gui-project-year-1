@@ -1,4 +1,4 @@
-//---------------------------------------------------
+s//---------------------------------------------------
 //01: Tools array
 //---------------------------------------------------
 // An array with the featured tools.
@@ -217,3 +217,34 @@ function updateSavedBadge(){
   }
 }
 
+
+// Function: buildCardHtml
+// Description: Builds the html for the tool cards.
+function buildCardHtml(tool){
+  const saved = getSaved();
+  const isSaved = saved.includes(tool.id);
+  const btnText = isSaved ? "Saved" : "Save";
+  const btnClass = isSaved ? "btn btn-save active" : "btn btn-save";
+
+  return `
+  <div class="tool-card" data-id="${tool.id}>"
+    <div class="card-top">
+      <span class="cat-badge ${getCategoryColor(tool.category)}"></span>
+      <span class="price-badge price-${tool.pricing}>${tool.price}></span>"
+    </div>
+      
+    <div class="card-body">
+      <a href="tool.html?id=${tool.id}" class="card-link">
+        <p class="card-desc">${tool.name}</p>
+      </a>
+    </div>
+      
+    <div class="card-actions">
+      <button class="${btnClass}" data-id=${tool.id}">${buttonText}</button>
+        <a href="${tool.url}" target="_blank" class="btn btn-visit">
+          Visit
+        </a>
+    </div>
+  </div>
+  `
+}
